@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Cpu } from 'lucide-react';
+import { Menu, X, Cpu, ArrowRight } from 'lucide-react';
 import { cn } from '../utils/cn';
 
 const navLinks = [
@@ -15,6 +15,7 @@ const navLinks = [
 export function Navigation({ settings }: { settings: any }) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('Home');
 
   const agencyName = settings?.agencyName || 'Agency';
   const half = Math.ceil(agencyName.length / 2);
@@ -24,61 +25,112 @@ export function Navigation({ settings }: { settings: any }) {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
+
+      // Active Section Tracking
+      const sections = navLinks.map(link => {
+        const id = link.href.replace('#', '');
+        if (!id) return { name: 'Home', offset: 0 };
+        const el = document.getElementById(id);
+        return { name: link.name, offset: el?.offsetTop || 0 };
+      });
+
+      const currentScroll = window.scrollY + 100;
+      const current = sections.reduce((prev, curr) => {
+        return (currentScroll >= curr.offset) ? curr : prev;
+      });
+      
+      setActiveSection(current.name);
     };
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleLinkClick = (link: typeof navLinks[0]) => {
+    setIsOpen(false);
+    const id = link.href.replace('#', '');
+    if (!id) window.scrollTo({ top: 0, behavior: 'smooth' });
+    else {
+      const el = document.getElementById(id);
+      if (el) {
+        const offset = el.offsetTop - 100;
+        window.scrollTo({ top: offset, behavior: 'smooth' });
+      }
+    }
+  };
+
   return (
     <nav
       className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-6 py-4',
-        scrolled ? 'py-3' : 'py-6'
+        'fixed top-0 left-0 right-0 z-50 transition-all duration-700 px-6 py-4',
+        scrolled ? 'py-3' : 'py-8'
       )}
     >
       <div className={cn(
-        'max-w-7xl mx-auto flex items-center justify-between px-6 py-3 rounded-full transition-all duration-500',
-        scrolled ? 'glass-effect border-white/5' : 'bg-transparent'
+        'max-w-7xl mx-auto flex items-center justify-between px-8 py-3 rounded-full transition-all duration-700 border border-transparent',
+        scrolled ? 'glass-card border-white/5 shadow-2xl scale-[0.98]' : 'bg-transparent'
       )}>
         {/* Logo */}
-        <div className="flex items-center gap-2 group cursor-pointer" data-magnetic>
-          <div className="w-10 h-10 bg-accent-cyan/10 rounded-xl flex items-center justify-center text-accent-cyan group-hover:bg-accent-cyan/20 transition-all duration-300">
-            <Cpu size={24} />
+        <motion.div 
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="flex items-center gap-3 group cursor-pointer" 
+        >
+          <div className="w-10 h-10 bg-accent-cyan/10 rounded-xl flex items-center justify-center text-accent-cyan group-hover:bg-accent-cyan group-hover:text-primary transition-all duration-500 group-hover:rotate-[360deg]">
+            <Cpu size={22} />
           </div>
           <span className="text-xl font-display font-bold tracking-tight uppercase">
             {firstHalf}<span className="text-accent-cyan">{secondHalf}</span>
           </span>
-        </div>
+        </motion.div>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a
+        <div className="hidden md:flex items-center gap-2">
+          {navLinks.map((link, i) => (
+            <motion.div
               key={link.name}
-              href={link.href}
-              onClick={(e) => {
-                e.preventDefault();
-                const id = link.href.replace('#', '');
-                if (!id) window.scrollTo({ top: 0, behavior: 'smooth' });
-                else document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="text-sm font-medium text-white/70 hover:text-accent-cyan transition-colors"
-              data-magnetic
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 }}
+              className="relative"
             >
-              {link.name}
-            </a>
+              <button
+                onClick={() => handleLinkClick(link)}
+                className={cn(
+                  "px-5 py-2.5 text-xs font-bold uppercase tracking-widest transition-all duration-500 relative z-10",
+                  activeSection === link.name ? "text-primary" : "text-white/40 hover:text-white"
+                )}
+              >
+                {link.name}
+              </button>
+              
+              {activeSection === link.name && (
+                <motion.div
+                  layoutId="nav-indicator"
+                  className="absolute inset-0 bg-white rounded-full -z-0"
+                  transition={{ type: "spring", bounce: 0.25, duration: 0.6 }}
+                />
+              )}
+            </motion.div>
           ))}
-          <button className="px-6 py-2 bg-accent-cyan text-primary font-bold rounded-full text-sm hover:scale-105 transition-transform active:scale-95" data-magnetic>
-            Get Started
-          </button>
+          
+          <div className="ml-4 pl-4 border-l border-white/10">
+            <button className="group px-6 py-2.5 bg-accent-cyan text-primary font-bold rounded-full text-xs hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2 shadow-[0_0_20px_rgba(0,242,255,0.2)]">
+              Get Started
+              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+            </button>
+          </div>
         </div>
 
         {/* Mobile Toggle */}
         <button
-          className="md:hidden text-white"
+          className={cn(
+            "md:hidden w-10 h-10 rounded-xl flex items-center justify-center transition-all",
+            isOpen ? "bg-white text-primary" : "bg-white/5 text-white"
+          )}
           onClick={() => setIsOpen(!isOpen)}
         >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
+          {isOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
 
@@ -86,22 +138,27 @@ export function Navigation({ settings }: { settings: any }) {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute top-24 left-6 right-6 glass-effect rounded-3xl p-8 flex flex-col items-center gap-6 md:hidden"
+            initial={{ opacity: 0, scale: 0.95, y: -20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: -20 }}
+            className="absolute top-24 left-6 right-6 glass-card rounded-[2.5rem] p-10 flex flex-col items-center gap-8 md:hidden border-white/5 shadow-2xl"
           >
-            {navLinks.map((link) => (
-              <a
+            {navLinks.map((link, i) => (
+              <motion.button
                 key={link.name}
-                href={link.href}
-                className="text-lg font-medium text-white/70"
-                onClick={() => setIsOpen(false)}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.05 }}
+                className={cn(
+                  "text-2xl font-display font-bold transition-all",
+                  activeSection === link.name ? "text-accent-cyan" : "text-white/30 hover:text-white"
+                )}
+                onClick={() => handleLinkClick(link)}
               >
                 {link.name}
-              </a>
+              </motion.button>
             ))}
-            <button className="w-full py-3 bg-accent-cyan text-primary font-bold rounded-full">
+            <button className="w-full py-5 bg-accent-cyan text-primary font-bold rounded-2xl text-sm uppercase tracking-widest shadow-lg">
               Get Started
             </button>
           </motion.div>
