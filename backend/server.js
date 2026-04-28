@@ -14,15 +14,32 @@ const allowedOrigins = process.env.CORS_ORIGIN
 
 // Middleware
 app.use(express.json());
+
+// Robust CORS configuration
 app.use(cors({
-  origin(origin, callback) {
-    if (!origin || allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
-      callback(null, true);
-      return;
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.length === 0) {
+      // If no origins specified, allow all in development, but be careful in production
+      return callback(null, true);
     }
 
-    callback(new Error('Not allowed by CORS'));
+    // Check if the origin matches any allowed origins (stripping trailing slashes for safety)
+    const normalizedOrigin = origin.replace(/\/$/, "");
+    const isAllowed = allowedOrigins.some(allowed => allowed.replace(/\/$/, "") === normalizedOrigin);
+
+    if (isAllowed) {
+      callback(null, true);
+    } else {
+      console.log(`CORS blocked for origin: ${origin}`);
+      callback(new Error('Not allowed by CORS'));
+    }
   },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 // Connect to MongoDB
