@@ -53,7 +53,14 @@ app.use('/api/settings', require('./routes/settings'));
 app.use('/api/admins', require('./routes/admins'));
 
 // Simple health check route
-app.get('/health', (req, res) => res.send('API Running'));
+app.get('/health', (req, res) => res.json({ status: 'healthy', timestamp: new Date() }));
+
+// Root route for visual confirmation
+app.get('/', (req, res) => res.json({ 
+  message: 'Creative Orbit Agency API', 
+  status: 'Live',
+  documentation: 'Check /api/auth, /api/projects, etc.'
+}));
 
 const PORT = process.env.PORT || 5001;
 
