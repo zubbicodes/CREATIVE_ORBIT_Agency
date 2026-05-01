@@ -150,13 +150,20 @@ export function Portfolio() {
       try {
         const res = await fetch('/api/projects');
         const data = await res.json();
-        // Sort: Featured first, then by date
-        const sorted = data.sort((a: any, b: any) => {
-          if (a.isFeatured && !b.isFeatured) return -1;
-          if (!a.isFeatured && b.isFeatured) return 1;
-          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-        });
-        setProjects(sorted.slice(0, 4)); // Show top 4 in featured section
+        
+        // Ensure data is an array before sorting
+        if (Array.isArray(data)) {
+          // Sort: Featured first, then by date
+          const sorted = data.sort((a: any, b: any) => {
+            if (a.isFeatured && !b.isFeatured) return -1;
+            if (!a.isFeatured && b.isFeatured) return 1;
+            return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+          });
+          setProjects(sorted.slice(0, 4)); // Show top 4 in featured section
+        } else {
+          console.error('API returned non-array data:', data);
+          setProjects([]);
+        }
       } catch (err) {
         console.error('Failed to fetch projects', err);
       } finally {

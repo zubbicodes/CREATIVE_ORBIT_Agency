@@ -25,7 +25,12 @@ export function AllProjects({ settings }: { settings: any }) {
       try {
         const res = await fetch('/api/projects');
         const data = await res.json();
-        setProjects(data);
+        if (Array.isArray(data)) {
+          setProjects(data);
+        } else {
+          console.error('API returned non-array data:', data);
+          setProjects([]);
+        }
       } catch (err) {
         console.error('Failed to fetch projects', err);
       } finally {
