@@ -171,7 +171,7 @@ export function Services() {
       >
         <div
           className={cn(
-            "flex gap-4 md:gap-8 px-4",
+            "flex items-stretch gap-4 md:gap-8 px-4",
             useMarquee ? "animate-marquee hover:[animation-play-state:paused]" : "flex-wrap justify-center max-w-7xl",
             activeCategory !== 'All' && useMarquee && "[animation-duration:25s]",
             "md:[animation-duration:40s] [animation-duration:20s]"

@@ -47,7 +47,7 @@ export function ServiceCard({ service, index }: ServiceCardProps) {
         rotateX,
         transformStyle: "preserve-3d",
       }}
-      className="glass-card group p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] w-[280px] md:w-[350px] shrink-0 relative overflow-hidden"
+      className="glass-card group p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] w-[280px] md:w-[350px] shrink-0 relative overflow-hidden h-full flex flex-col"
     >
       {/* Background Glow */}
       <div className={cn(
@@ -55,7 +55,7 @@ export function ServiceCard({ service, index }: ServiceCardProps) {
         service.color
       )} />
 
-      <div style={{ transform: "translateZ(50px)" }} className="relative z-10">
+      <div style={{ transform: "translateZ(50px)" }} className="relative z-10 h-full flex flex-col">
         <div className={cn(
           "w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl flex items-center justify-center mb-6 md:mb-8 bg-white/5 border border-white/10 transition-all duration-500 group-hover:scale-110 group-hover:border-accent-cyan/30 group-hover:shadow-[0_0_30px_rgba(0,242,255,0.1)]",
         )}>
@@ -68,11 +68,11 @@ export function ServiceCard({ service, index }: ServiceCardProps) {
           {service.title}
         </h3>
         
-        <p className="text-white/40 text-xs md:text-sm leading-relaxed group-hover:text-white/70 transition-colors line-clamp-3">
+        <p className="text-white/40 text-xs md:text-sm leading-relaxed group-hover:text-white/70 transition-colors line-clamp-3 mb-6">
           {service.description}
         </p>
 
-        <div className="mt-6 md:mt-8 pt-4 md:pt-6 border-t border-white/5 flex items-center justify-between">
+        <div className="mt-auto pt-4 md:pt-6 border-t border-white/5 flex items-center justify-between">
           <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-accent-cyan opacity-50 group-hover:opacity-100 transition-opacity">
             {service.category}
           </span>
