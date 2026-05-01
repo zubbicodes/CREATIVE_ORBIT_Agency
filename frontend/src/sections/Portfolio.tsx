@@ -2,7 +2,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { ExternalLink, ArrowRight, ArrowUpRight, CheckCircle2, Star, Zap, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { cn } from '../utils/cn';
+
+gsap.registerPlugin(ScrollTrigger);
 
 function ProjectRow({ project, index }: { project: any; index: number }) {
   const isEven = index % 2 === 0;
@@ -29,7 +33,7 @@ function ProjectRow({ project, index }: { project: any; index: number }) {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             className="space-y-4"
           >
@@ -168,6 +172,10 @@ export function Portfolio() {
         console.error('Failed to fetch projects', err);
       } finally {
         setLoading(false);
+        // Refresh GSAP ScrollTrigger after data loads to prevent layout glitches
+        setTimeout(() => {
+          ScrollTrigger.refresh();
+        }, 100);
       }
     };
     fetchProjects();

@@ -66,7 +66,7 @@ export function Process() {
   }, []);
 
   return (
-    <section ref={containerRef} className="bg-primary overflow-hidden">
+    <section ref={containerRef} className="bg-primary relative overflow-hidden">
       <div className="min-h-screen flex flex-col items-start justify-start py-20 md:py-0">
         <div className="container mx-auto px-6 mb-12 md:mb-20 md:absolute md:top-16 left-0 right-0 z-20">
           <motion.span 

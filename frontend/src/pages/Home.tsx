@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import Lenis from 'lenis';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Navigation } from '../components/Navigation';
 import { Hero3D } from '../sections/Hero3D';
 import { Services } from '../sections/Services';
@@ -13,11 +15,19 @@ import { Footer } from '../components/Footer';
 export function Home({ settings }: { settings: any }) {
   useEffect(() => {
     const lenis = new Lenis();
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
+    
+    lenis.on('scroll', ScrollTrigger.update);
+
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+
+    gsap.ticker.lagSmoothing(0);
+
+    return () => {
+      lenis.destroy();
+      gsap.ticker.remove(lenis.raf);
+    };
   }, []);
 
   return (
