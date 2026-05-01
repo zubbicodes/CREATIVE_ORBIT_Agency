@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Search, 
-  Filter, 
-  Trash2, 
-  Loader2, 
-  X, 
-  Mail, 
-  User, 
-  MessageSquare, 
-  CheckCircle2, 
-  Clock, 
+import {
+  Search,
+  Filter,
+  Trash2,
+  Loader2,
+  X,
+  Mail,
+  User,
+  MessageSquare,
+  CheckCircle2,
+  Clock,
   Archive,
   ShoppingBag,
   Inbox,
@@ -18,6 +18,7 @@ import {
   Building2
 } from 'lucide-react';
 import { AdminLayout } from './AdminLayout';
+import { cn } from '../utils/cn';
 
 interface Message {
   _id: string;
@@ -78,7 +79,7 @@ export const Messages = () => {
     try {
       const response = await fetch(`/api/messages/${id}`, {
         method: 'PUT',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'x-auth-token': localStorage.getItem('adminToken') || ''
         },
@@ -112,9 +113,9 @@ export const Messages = () => {
   };
 
   const filteredMessages = messages.filter(m => {
-    const matchesSearch = m.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                         m.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         m.email.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = m.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      m.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      m.email.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesFilter = filterType === 'All' || m.type === filterType;
     return matchesSearch && matchesFilter;
   });
@@ -134,9 +135,8 @@ export const Messages = () => {
               <button
                 key={type}
                 onClick={() => setFilterType(type)}
-                className={`flex-1 py-2 px-4 text-[10px] md:text-xs font-bold rounded-xl transition-all whitespace-nowrap ${
-                  filterType === type ? 'bg-white/10 text-white shadow-lg' : 'text-white/40 hover:text-white/60'
-                }`}
+                className={`flex-1 py-2 px-4 text-[10px] md:text-xs font-bold rounded-xl transition-all whitespace-nowrap ${filterType === type ? 'bg-white/10 text-white shadow-lg' : 'text-white/40 hover:text-white/60'
+                  }`}
               >
                 {type}
               </button>
@@ -145,8 +145,8 @@ export const Messages = () => {
 
           <div className="relative group w-full">
             <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-accent-cyan transition-colors" size={20} />
-            <input 
-              type="text" 
+            <input
+              type="text"
               placeholder="Search your inbox..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -186,16 +186,14 @@ export const Messages = () => {
                         setSelectedMessage(msg);
                         if (msg.status === 'Unread') handleUpdateStatus(msg._id, 'Read');
                       }}
-                      className={`p-4 md:p-5 cursor-pointer transition-all hover:bg-white/[0.03] relative group ${
-                        selectedMessage?._id === msg._id ? 'bg-white/[0.05]' : ''
-                      }`}
+                      className={`p-4 md:p-5 cursor-pointer transition-all hover:bg-white/[0.03] relative group ${selectedMessage?._id === msg._id ? 'bg-white/[0.05]' : ''
+                        }`}
                     >
                       <div className="flex justify-between items-start mb-1.5">
                         <div className="flex items-center gap-2 md:gap-3">
                           <StatusIcon status={msg.status} />
-                          <h4 className={`text-sm font-bold truncate max-w-[120px] md:max-w-[150px] ${
-                            msg.status === 'Unread' ? 'text-white' : 'text-white/50'
-                          }`}>
+                          <h4 className={`text-sm font-bold truncate max-w-[120px] md:max-w-[150px] ${msg.status === 'Unread' ? 'text-white' : 'text-white/50'
+                            }`}>
                             {msg.name}
                           </h4>
                         </div>
@@ -203,9 +201,8 @@ export const Messages = () => {
                           {new Date(msg.createdAt).toLocaleDateString()}
                         </span>
                       </div>
-                      <p className={`text-[11px] md:text-xs mb-2 truncate ${
-                        msg.status === 'Unread' ? 'text-white/80' : 'text-white/30'
-                      }`}>
+                      <p className={`text-[11px] md:text-xs mb-2 truncate ${msg.status === 'Unread' ? 'text-white/80' : 'text-white/30'
+                        }`}>
                         {msg.subject}
                       </p>
                       <div className="flex justify-between items-center">
@@ -228,7 +225,7 @@ export const Messages = () => {
           )}>
             <AnimatePresence mode='wait'>
               {selectedMessage ? (
-                <motion.div 
+                <motion.div
                   key={selectedMessage._id}
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -237,7 +234,7 @@ export const Messages = () => {
                 >
                   <div className="p-4 md:p-8 border-b border-white/5 flex justify-between items-center bg-white/[0.01]">
                     <div className="flex gap-3 md:gap-4 items-center">
-                      <button 
+                      <button
                         onClick={() => setSelectedMessage(null)}
                         className="lg:hidden p-2 text-white/40 hover:text-white"
                       >
@@ -255,14 +252,14 @@ export const Messages = () => {
                       </div>
                     </div>
                     <div className="flex gap-1 md:gap-2">
-                      <button 
+                      <button
                         onClick={() => handleUpdateStatus(selectedMessage._id, 'Archived')}
                         className="p-2 md:p-3 bg-white/5 rounded-xl text-white/40 hover:text-white hover:bg-white/10 transition-all"
                         title="Archive"
                       >
                         <Archive className="w-4 h-4 md:w-[18px] md:h-[18px]" />
                       </button>
-                      <button 
+                      <button
                         onClick={() => handleDelete(selectedMessage._id)}
                         className="p-2 md:p-3 bg-white/5 rounded-xl text-white/40 hover:text-red-400 hover:bg-red-500/10 transition-all"
                         title="Delete"
@@ -297,7 +294,7 @@ export const Messages = () => {
                         <Send size={18} />
                         Reply via Email
                       </button>
-                      <button 
+                      <button
                         onClick={() => handleUpdateStatus(selectedMessage._id, 'Read')}
                         className="py-3.5 md:py-4 px-6 md:px-8 bg-white/5 text-white/60 font-bold rounded-2xl hover:bg-white/10 transition-all text-sm md:text-base"
                       >
@@ -310,7 +307,7 @@ export const Messages = () => {
                 <div className="flex-1 hidden lg:flex flex-col items-center justify-center p-10 text-center gap-6">
                   <div className="w-24 h-24 bg-white/5 rounded-full flex items-center justify-center border border-white/5 relative">
                     <MessageSquare size={40} className="text-white/10" />
-                    <motion.div 
+                    <motion.div
                       animate={{ scale: [1, 1.2, 1] }}
                       transition={{ repeat: Infinity, duration: 4 }}
                       className="absolute inset-0 bg-accent-cyan/5 rounded-full blur-xl"

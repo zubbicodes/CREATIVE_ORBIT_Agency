@@ -1,40 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { ExternalLink, ArrowRight, ArrowUpRight, CheckCircle2, Star, Zap, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { cn } from '../utils/cn';
-
-const categories = ['All', 'Websites', 'Apps', 'Branding'];
-
-const projects = [
-  {
-    title: 'Nexus Fintech',
-    category: 'Fintech Ecosystem',
-    image: 'https://images.unsplash.com/photo-1614028674026-a65e31bfd27c?auto=format&fit=crop&w=1200&q=80',
-    description: 'A revolutionary wealth management platform that processes $2M+ in daily transactions with zero latency.',
-    results: ['99.9% Uptime', '40% Faster Onboarding', '200k+ Active Users'],
-    tags: ['React', 'D3.js', 'Firebase'],
-    challenge: 'Designing a secure yet intuitive interface for complex financial data visualization.'
-  },
-  {
-    title: 'Lumina Fashion',
-    category: 'E-Commerce App',
-    image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=1200&q=80',
-    description: 'A luxury fashion app that leverages AR to let customers "try on" accessories from their mobile devices.',
-    results: ['25% Conversion Boost', 'Global Shipping API', 'iOS & Android'],
-    tags: ['SwiftUI', 'Node.js', 'Stripe'],
-    challenge: 'Integrating low-latency AR models into a high-performance shopping experience.'
-  },
-  {
-    title: 'Aether Logistics',
-    category: 'AI Platform',
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80',
-    description: 'Autonomous supply chain management system powered by neural networks for predictive shipping.',
-    results: ['Reduced Waste by 30%', 'AI-Route Optimization', 'Enterprise Scale'],
-    tags: ['Three.js', 'Next.js', 'GSAP'],
-    challenge: 'Simplifying multi-layered logistical data into a real-time command center dashboard.'
-  }
-];
 
 function ProjectRow({ project, index }: { project: any; index: number }) {
   const isEven = index % 2 === 0;
@@ -71,8 +39,8 @@ function ProjectRow({ project, index }: { project: any; index: number }) {
                 {project.category}
               </span>
             </div>
-            <h3 className="text-5xl md:text-8xl font-display font-bold leading-[0.9] tracking-tighter">
-              {project.title.split(' ').map((word: string, i: number) => (
+            <h3 className="text-5xl md:text-8xl font-display font-bold leading-[0.9] tracking-tighter text-white">
+              {(project.name || project.title).split(' ').map((word: string, i: number) => (
                 <span key={i} className="inline-block overflow-hidden mr-3">
                   <motion.span
                     initial={{ y: "100%" }}
@@ -103,7 +71,7 @@ function ProjectRow({ project, index }: { project: any; index: number }) {
             className="space-y-8"
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {project.results.map((res: string, i: number) => (
+              {(project.results || []).map((res: string, i: number) => (
                 <div key={res} className="flex items-start gap-4 group">
                   <div className="mt-1 w-2 h-2 rounded-full bg-accent-cyan group-hover:scale-150 transition-transform shadow-[0_0_15px_rgba(0,242,255,0.5)]" />
                   <span className="text-sm md:text-base font-bold text-white/70 uppercase tracking-widest">{res}</span>
@@ -141,7 +109,7 @@ function ProjectRow({ project, index }: { project: any; index: number }) {
             <motion.img 
               style={{ y: imageY }}
               src={project.image} 
-              alt={project.title}
+              alt={project.name || project.title}
               className="absolute inset-0 w-full h-[120%] object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-700"
             />
             {/* Gloss Overlay */}
@@ -160,7 +128,7 @@ function ProjectRow({ project, index }: { project: any; index: number }) {
           >
             <span className="text-[10px] font-black uppercase tracking-widest text-accent-cyan">Technology Stack</span>
             <div className="flex gap-2">
-              {project.tags.map((tag: string) => (
+              {(project.tags || []).map((tag: string) => (
                 <span key={tag} className="text-xs font-bold text-white/80">{tag}</span>
               ))}
             </div>
@@ -196,29 +164,7 @@ export function Portfolio() {
     fetchProjects();
   }, []);
 
-  // Fallback projects if none in DB
-  const fallbackProjects = [
-    {
-      title: 'Nexus Fintech',
-      category: 'Fintech Ecosystem',
-      image: 'https://images.unsplash.com/photo-1614028674026-a65e31bfd27c?auto=format&fit=crop&w=1200&q=80',
-      description: 'A revolutionary wealth management platform that processes $2M+ in daily transactions with zero latency.',
-      results: ['99.9% Uptime', '40% Faster Onboarding', '200k+ Active Users'],
-      tags: ['React', 'D3.js', 'Firebase'],
-      challenge: 'Designing a secure yet intuitive interface for complex financial data visualization.'
-    },
-    {
-      title: 'Lumina Fashion',
-      category: 'E-Commerce App',
-      image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=1200&q=80',
-      description: 'A luxury fashion app that leverages AR to let customers "try on" accessories from their mobile devices.',
-      results: ['25% Conversion Boost', 'Global Shipping API', 'iOS & Android'],
-      tags: ['SwiftUI', 'Node.js', 'Stripe'],
-      challenge: 'Integrating low-latency AR models into a high-performance shopping experience.'
-    }
-  ];
-
-  const displayProjects = projects.length > 0 ? projects : fallbackProjects;
+  const displayProjects = projects;
 
   return (
     <section id="portfolio" className="bg-primary relative overflow-hidden pt-32">
@@ -237,7 +183,7 @@ export function Portfolio() {
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          className="text-4xl md:text-7xl font-display font-bold leading-tight"
+          className="text-4xl md:text-7xl font-display font-bold leading-tight text-white"
         >
           Featured <span className="text-gradient">Portfolio</span>
         </motion.h2>
@@ -246,6 +192,8 @@ export function Portfolio() {
       <div className="relative">
         {loading ? (
           <div className="py-20 text-center text-white/20 italic">Loading masterpieces...</div>
+        ) : displayProjects.length === 0 ? (
+          <div className="py-20 text-center text-white/20 italic">No featured projects yet.</div>
         ) : (
           displayProjects.map((project, i) => (
             <ProjectRow key={project._id || project.title} project={project} index={i} />
@@ -279,3 +227,4 @@ export function Portfolio() {
     </section>
   );
 }
+
