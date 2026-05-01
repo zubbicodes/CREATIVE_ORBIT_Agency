@@ -4,6 +4,7 @@ import { Home } from './pages/Home';
 import { AllProjects } from './pages/AllProjects';
 import { Login } from './admin/Login';
 import { Maintenance } from './pages/Maintenance';
+import { ProjectDetail } from './pages/ProjectDetail';
 import { ProtectedRoute } from './components/ProtectedRoute';
 
 import { Overview } from './admin/Overview';
@@ -50,6 +51,7 @@ function App() {
           element={settings?.maintenanceMode ? <Maintenance /> : <Home settings={settings} />} 
         />
         <Route path="/projects" element={<AllProjects settings={settings} />} />
+        <Route path="/project/:id" element={<ProjectDetail settings={settings} />} />
         
         {/* Admin Login */}
         <Route path="/login" element={<Login />} />

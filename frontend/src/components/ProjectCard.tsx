@@ -1,15 +1,15 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { ExternalLink, ArrowUpRight } from 'lucide-react';
-import { cn } from '../utils/cn';
+import { ArrowUpRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface ProjectCardProps {
   project: {
-    title: string;
+    _id: string;
+    name: string;
     category: string;
     image: string;
     description: string;
-    link?: string;
     tags?: string[];
   };
   index: number;
@@ -47,18 +47,19 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
   };
 
   return (
-    <motion.div
-      layout
-      exit={{ opacity: 0, scale: 0.9 }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        rotateY,
-        rotateX,
-        transformStyle: "preserve-3d",
-      }}
-      className="group relative h-[400px] md:h-[500px] w-full rounded-[2rem] md:rounded-[2.5rem] cursor-pointer"
-    >
+    <Link to={`/project/${project._id}`} className="block">
+      <motion.div
+        layout
+        exit={{ opacity: 0, scale: 0.9 }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{
+          rotateY,
+          rotateX,
+          transformStyle: "preserve-3d",
+        }}
+        className="group relative h-[400px] md:h-[500px] w-full rounded-[2rem] md:rounded-[2.5rem] cursor-pointer"
+      >
       {/* Background Image with Parallax-ish Scale */}
       <div 
         style={{
@@ -73,7 +74,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         >
           <img 
             src={project.image} 
-            alt={project.title}
+            alt={project.name}
             className="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-500"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
@@ -112,7 +113,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             className="space-y-1 md:space-y-2"
           >
             <h3 className="text-2xl md:text-3xl font-display font-bold text-white group-hover:text-accent-cyan transition-colors duration-300">
-              {project.title}
+              {project.name}
             </h3>
             <p className="text-white/60 text-xs md:text-sm leading-relaxed line-clamp-2 max-w-[95%] md:max-w-[90%]">
               {project.description}
@@ -135,5 +136,6 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       {/* Decorative Border Glow */}
       <div className="absolute inset-0 rounded-[2rem] md:rounded-[2.5rem] border border-white/5 group-hover:border-accent-cyan/30 transition-colors duration-500 pointer-events-none" />
     </motion.div>
-  );
+  </Link>
+);
 }

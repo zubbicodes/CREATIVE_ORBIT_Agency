@@ -85,18 +85,20 @@ function ProjectRow({ project, index }: { project: any; index: number }) {
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.7 }}
           >
-            <motion.button 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-6 group"
-            >
-              <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center group-hover:border-accent-cyan group-hover:bg-accent-cyan transition-all duration-500">
-                <ArrowRight size={24} className="text-white group-hover:text-primary group-hover:-rotate-45 transition-all" />
-              </div>
-              <span className="text-sm font-bold uppercase tracking-[0.3em] text-white/60 group-hover:text-white transition-colors">
-                View Case Study
-              </span>
-            </motion.button>
+            <Link to={`/project/${project._id}`}>
+              <motion.button 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex items-center gap-6 group"
+              >
+                <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center group-hover:border-accent-cyan group-hover:bg-accent-cyan transition-all duration-500">
+                  <ArrowRight size={24} className="text-white group-hover:text-primary group-hover:-rotate-45 transition-all" />
+                </div>
+                <span className="text-sm font-bold uppercase tracking-[0.3em] text-white/60 group-hover:text-white transition-colors">
+                  View Case Study
+                </span>
+              </motion.button>
+            </Link>
           </motion.div>
         </div>
 
