@@ -9,6 +9,7 @@ import {
   Clock, 
   CheckCircle2, 
   AlertCircle,
+  Star,
   Briefcase,
   ChevronRight,
   X,
@@ -21,6 +22,7 @@ import {
   Building2
 } from 'lucide-react';
 import { AdminLayout } from './AdminLayout';
+import { cn } from '../utils/cn';
 
 interface Client {
   _id: string;
@@ -36,6 +38,11 @@ interface Project {
   progress: number;
   dueDate: string;
   budget: number;
+  isFeatured: boolean;
+  image: string;
+  results: string[];
+  tags: string[];
+  challenge?: string;
   description?: string;
 }
 
@@ -71,6 +78,11 @@ export const Projects = () => {
     progress: 0,
     dueDate: '',
     budget: 0,
+    isFeatured: false,
+    image: '',
+    results: '', // as comma separated string in form
+    tags: '', // as comma separated string in form
+    challenge: '',
     description: ''
   });
 
@@ -115,6 +127,11 @@ export const Projects = () => {
         progress: project.progress,
         dueDate: project.dueDate ? new Date(project.dueDate).toISOString().split('T')[0] : '',
         budget: project.budget,
+        isFeatured: project.isFeatured || false,
+        image: project.image || '',
+        results: project.results ? project.results.join(', ') : '',
+        tags: project.tags ? project.tags.join(', ') : '',
+        challenge: project.challenge || '',
         description: project.description || ''
       });
     } else {
@@ -126,6 +143,11 @@ export const Projects = () => {
         progress: 0,
         dueDate: '',
         budget: 0,
+        isFeatured: false,
+        image: '',
+        results: '',
+        tags: '',
+        challenge: '',
         description: ''
       });
     }
@@ -165,7 +187,11 @@ export const Projects = () => {
           'Content-Type': 'application/json',
           'x-auth-token': localStorage.getItem('adminToken') || ''
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          results: formData.results.split(',').map(s => s.trim()).filter(s => s !== ''),
+          tags: formData.tags.split(',').map(s => s.trim()).filter(s => s !== '')
+        }),
       });
 
       if (response.ok) {
@@ -268,7 +294,12 @@ export const Projects = () => {
                               <Briefcase size={18} className="text-accent-cyan" />
                             </div>
                             <div>
-                              <p className="font-bold text-white group-hover:text-accent-cyan transition-colors">{project.name}</p>
+                              <div className="flex items-center gap-2">
+                                <p className="font-bold text-white group-hover:text-accent-cyan transition-colors">{project.name}</p>
+                                {project.isFeatured && (
+                                  <Star size={12} className="text-yellow-400 fill-yellow-400" />
+                                )}
+                              </div>
                               <p className="text-xs text-white/40">Budget: ${project.budget?.toLocaleString()}</p>
                             </div>
                           </div>
@@ -485,6 +516,28 @@ export const Projects = () => {
                         />
                       </div>
                     </div>
+
+                    {/* Featured Toggle */}
+                    <div className="space-y-2 group flex flex-col justify-center">
+                      <label className="text-[10px] font-bold uppercase tracking-widest text-white/30 ml-4 mb-2">
+                        Show in Portfolio
+                      </label>
+                      <button
+                        type="button"
+                        onClick={() => setFormData({...formData, isFeatured: !formData.isFeatured})}
+                        className={cn(
+                          "flex items-center gap-3 px-6 py-3.5 rounded-2xl border transition-all",
+                          formData.isFeatured 
+                            ? "bg-yellow-500/10 border-yellow-500/30 text-yellow-500" 
+                            : "bg-white/5 border-white/10 text-white/40 hover:border-white/20"
+                        )}
+                      >
+                        <Star size={18} className={cn(formData.isFeatured && "fill-yellow-500")} />
+                        <span className="text-sm font-bold uppercase tracking-widest">
+                          {formData.isFeatured ? 'Featured Project' : 'Normal Project'}
+                        </span>
+                      </button>
+                    </div>
                   </div>
 
                   {/* Description */}
@@ -503,6 +556,69 @@ export const Projects = () => {
                         rows={3}
                         className="w-full bg-white/5 border border-white/10 rounded-2xl pl-12 pr-4 py-4 outline-none focus:border-accent-cyan/50 focus:bg-white/[0.08] transition-all text-white resize-none"
                       />
+                    </div>
+                  </div>
+
+                  {/* Portfolio Specific Fields */}
+                  <div className="pt-4 border-t border-white/5 space-y-6">
+                    <h4 className="text-xs font-bold text-accent-cyan uppercase tracking-widest px-4">Portfolio Details</h4>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {/* Image URL */}
+                      <div className="space-y-2 group">
+                        <label className="text-[10px] font-bold uppercase tracking-widest text-white/30 ml-4 group-focus-within:text-accent-cyan transition-colors">
+                          Project Image URL
+                        </label>
+                        <input 
+                          type="text" 
+                          value={formData.image}
+                          onChange={(e) => setFormData({...formData, image: e.target.value})}
+                          placeholder="https://images.unsplash.com/..."
+                          className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 outline-none focus:border-accent-cyan/50 focus:bg-white/[0.08] transition-all text-white"
+                        />
+                      </div>
+
+                      {/* Tags */}
+                      <div className="space-y-2 group">
+                        <label className="text-[10px] font-bold uppercase tracking-widest text-white/30 ml-4 group-focus-within:text-accent-cyan transition-colors">
+                          Technologies (Comma separated)
+                        </label>
+                        <input 
+                          type="text" 
+                          value={formData.tags}
+                          onChange={(e) => setFormData({...formData, tags: e.target.value})}
+                          placeholder="React, Node.js, GSAP"
+                          className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 outline-none focus:border-accent-cyan/50 focus:bg-white/[0.08] transition-all text-white"
+                        />
+                      </div>
+
+                      {/* Results */}
+                      <div className="space-y-2 group md:col-span-2">
+                        <label className="text-[10px] font-bold uppercase tracking-widest text-white/30 ml-4 group-focus-within:text-accent-cyan transition-colors">
+                          Key Results (Comma separated)
+                        </label>
+                        <input 
+                          type="text" 
+                          value={formData.results}
+                          onChange={(e) => setFormData({...formData, results: e.target.value})}
+                          placeholder="99.9% Uptime, 2x Conversion, Mobile Friendly"
+                          className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 outline-none focus:border-accent-cyan/50 focus:bg-white/[0.08] transition-all text-white"
+                        />
+                      </div>
+
+                      {/* Challenge */}
+                      <div className="space-y-2 group md:col-span-2">
+                        <label className="text-[10px] font-bold uppercase tracking-widest text-white/30 ml-4 group-focus-within:text-accent-cyan transition-colors">
+                          The Challenge
+                        </label>
+                        <textarea 
+                          value={formData.challenge}
+                          onChange={(e) => setFormData({...formData, challenge: e.target.value})}
+                          placeholder="What was the main problem you solved?"
+                          rows={2}
+                          className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 outline-none focus:border-accent-cyan/50 focus:bg-white/[0.08] transition-all text-white resize-none"
+                        />
+                      </div>
                     </div>
                   </div>
 

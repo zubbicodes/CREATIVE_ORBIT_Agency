@@ -39,12 +39,14 @@ export function AllProjects({ settings }: { settings: any }) {
     };
   }, []);
 
-  const filteredProjects = projects.filter(p => {
-    const matchesFilter = filter === 'All' || p.category === filter;
-    const matchesSearch = p.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                         p.description.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesFilter && matchesSearch;
-  });
+  const filteredProjects = projects
+    .sort((a, b) => (b.isFeatured ? 1 : 0) - (a.isFeatured ? 1 : 0))
+    .filter(p => {
+      const matchesFilter = filter === 'All' || p.category === filter;
+      const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                           p.description?.toLowerCase().includes(searchQuery.toLowerCase());
+      return matchesFilter && matchesSearch;
+    });
 
   const categories = ['All', ...new Set(projects.map(p => p.category))];
 

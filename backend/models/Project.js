@@ -36,6 +36,26 @@ const ProjectSchema = new mongoose.Schema({
   budget: {
     type: Number
   },
+  isFeatured: {
+    type: Boolean,
+    default: false
+  },
+  image: {
+    type: String,
+    trim: true
+  },
+  results: {
+    type: [String],
+    default: []
+  },
+  tags: {
+    type: [String],
+    default: []
+  },
+  challenge: {
+    type: String,
+    trim: true
+  },
   createdAt: {
     type: Date,
     default: Date.now

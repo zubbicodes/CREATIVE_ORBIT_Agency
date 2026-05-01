@@ -172,6 +172,54 @@ function ProjectRow({ project, index }: { project: any; index: number }) {
 }
 
 export function Portfolio() {
+  const [projects, setProjects] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await fetch('/api/projects');
+        const data = await res.json();
+        // Sort: Featured first, then by date
+        const sorted = data.sort((a: any, b: any) => {
+          if (a.isFeatured && !b.isFeatured) return -1;
+          if (!a.isFeatured && b.isFeatured) return 1;
+          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+        });
+        setProjects(sorted.slice(0, 4)); // Show top 4 in featured section
+      } catch (err) {
+        console.error('Failed to fetch projects', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProjects();
+  }, []);
+
+  // Fallback projects if none in DB
+  const fallbackProjects = [
+    {
+      title: 'Nexus Fintech',
+      category: 'Fintech Ecosystem',
+      image: 'https://images.unsplash.com/photo-1614028674026-a65e31bfd27c?auto=format&fit=crop&w=1200&q=80',
+      description: 'A revolutionary wealth management platform that processes $2M+ in daily transactions with zero latency.',
+      results: ['99.9% Uptime', '40% Faster Onboarding', '200k+ Active Users'],
+      tags: ['React', 'D3.js', 'Firebase'],
+      challenge: 'Designing a secure yet intuitive interface for complex financial data visualization.'
+    },
+    {
+      title: 'Lumina Fashion',
+      category: 'E-Commerce App',
+      image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=1200&q=80',
+      description: 'A luxury fashion app that leverages AR to let customers "try on" accessories from their mobile devices.',
+      results: ['25% Conversion Boost', 'Global Shipping API', 'iOS & Android'],
+      tags: ['SwiftUI', 'Node.js', 'Stripe'],
+      challenge: 'Integrating low-latency AR models into a high-performance shopping experience.'
+    }
+  ];
+
+  const displayProjects = projects.length > 0 ? projects : fallbackProjects;
+
   return (
     <section id="portfolio" className="bg-primary relative overflow-hidden pt-32">
       {/* Background Ambient Glow */}
@@ -184,21 +232,25 @@ export function Portfolio() {
           whileInView={{ opacity: 1, y: 0 }}
           className="text-xs font-bold uppercase tracking-[0.3em] text-accent-cyan mb-4 block"
         >
-          The Archive
+          Selected Creations
         </motion.span>
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           className="text-4xl md:text-7xl font-display font-bold leading-tight"
         >
-          Selected <span className="text-gradient">Creations</span>
+          Featured <span className="text-gradient">Portfolio</span>
         </motion.h2>
       </div>
 
       <div className="relative">
-        {projects.map((project, i) => (
-          <ProjectRow key={project.title} project={project} index={i} />
-        ))}
+        {loading ? (
+          <div className="py-20 text-center text-white/20 italic">Loading masterpieces...</div>
+        ) : (
+          displayProjects.map((project, i) => (
+            <ProjectRow key={project._id || project.title} project={project} index={i} />
+          ))
+        )}
       </div>
 
       {/* View More Button */}
