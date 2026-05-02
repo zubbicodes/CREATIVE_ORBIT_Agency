@@ -172,6 +172,15 @@ export const AdminLayout = ({ children, title }: { children: React.ReactNode, ti
                   onClick={() => setIsSidebarOpen(false)}
                 />
               )}
+              {hasPermission('testimonials') && (
+                <SidebarItem 
+                  icon={MessageSquare} 
+                  label="Testimonials" 
+                  path="/admin/testimonials" 
+                  active={location.pathname === '/admin/testimonials'} 
+                  onClick={() => setIsSidebarOpen(false)}
+                />
+              )}
             </div>
           )}
 

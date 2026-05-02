@@ -153,6 +153,7 @@ export function Portfolio() {
     const fetchProjects = async () => {
       try {
         const res = await fetch('/api/projects');
+        if (!res.ok) throw new Error('Failed to fetch projects');
         const data = await res.json();
         
         // Ensure data is an array before sorting

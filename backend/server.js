@@ -68,6 +68,7 @@ app.use('/api/tasks', require('./routes/tasks'));
 app.use('/api/invoices', require('./routes/invoices'));
 app.use('/api/settings', require('./routes/settings'));
 app.use('/api/admins', require('./routes/admins'));
+app.use('/api/testimonials', require('./routes/testimonials'));
 
 // Simple health check route
 app.get('/health', (req, res) => res.json({ status: 'healthy', timestamp: new Date() }));

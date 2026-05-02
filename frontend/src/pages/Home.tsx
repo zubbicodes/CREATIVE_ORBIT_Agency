@@ -7,6 +7,7 @@ import { Hero3D } from '../sections/Hero3D';
 import { Services } from '../sections/Services';
 import { Packages } from '../sections/Packages';
 import { Portfolio } from '../sections/Portfolio';
+import { TestimonialBook } from '../sections/TestimonialBook';
 import { Process } from '../sections/Process';
 import { About } from '../sections/About';
 import { Contact } from '../sections/Contact';
@@ -36,6 +37,7 @@ export function Home({ settings }: { settings: any }) {
       <Hero3D settings={settings} />
       <Services />
       <Portfolio />
+      <TestimonialBook />
       <Process />
       <Packages />
       <About settings={settings} />
