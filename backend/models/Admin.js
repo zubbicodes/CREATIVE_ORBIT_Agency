@@ -24,7 +24,7 @@ const AdminSchema = new mongoose.Schema({
   },
   permissions: {
     type: [String],
-    default: ['dashboard', 'clients', 'messages', 'leads', 'deals', 'projects', 'tasks', 'invoices', 'settings']
+    default: ['dashboard', 'clients', 'messages', 'leads', 'deals', 'projects', 'tasks', 'invoices', 'settings', 'testimonials', 'packages']
   },
   createdAt: {
     type: Date,

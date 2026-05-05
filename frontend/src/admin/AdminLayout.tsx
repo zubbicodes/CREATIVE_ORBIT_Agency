@@ -79,7 +79,8 @@ export const AdminLayout = ({ children, title }: { children: React.ReactNode, ti
   const secondHalf = agencyName.slice(half);
 
   const hasPermission = (perm: string) => {
-    if (!adminUser?.permissions) return true; // Default to all if not set (for super admin)
+    if (adminUser?.role === 'Super Admin') return true;
+    if (!adminUser?.permissions) return true;
     return adminUser.permissions.includes(perm);
   };
 
