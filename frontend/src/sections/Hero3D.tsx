@@ -136,7 +136,7 @@ export function Hero3D({ settings }: { settings: any }) {
             {settings?.tagline || 'Next-Gen Software Solutions'}
           </span>
           
-          <h1 ref={textRef} className="text-[2.5rem] sm:text-6xl md:text-8xl font-display font-extrabold mb-8 leading-[1.1] tracking-tight py-4 max-w-6xl mx-auto">
+          <h1 ref={textRef} className="text-[2.5rem] sm:text-6xl lg:text-7xl xl:text-8xl font-display font-extrabold mb-8 leading-[1.1] tracking-tight py-4 max-w-6xl mx-auto">
             {[agencyName, 'is', 'the', 'Future'].map((word, i) => {
               const isGradient = i === 0 || word === 'Future';
               return (

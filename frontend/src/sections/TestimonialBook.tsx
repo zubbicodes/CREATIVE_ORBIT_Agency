@@ -46,6 +46,7 @@ const defaultTestimonials: Testimonial[] = [
 
 export function TestimonialBook() {
   const bookRef = useRef<any>(null);
+  const isLaptop = useMediaQuery('(min-width: 1024px) and (max-width: 1440px)');
   const isSmallScreen = useMediaQuery('(max-width: 768px)');
   const [currentPage, setCurrentPage] = useState(0);
   const [testimonials, setTestimonials] = useState<Testimonial[]>(defaultTestimonials);
@@ -67,8 +68,8 @@ export function TestimonialBook() {
   }, []);
 
   return (
-    <section id="testimonials" className="py-32 bg-primary relative overflow-hidden">
-      <div className="container mx-auto px-6 mb-20 text-center">
+    <section id="testimonials" className="py-20 lg:py-32 bg-primary relative overflow-hidden">
+      <div className="container mx-auto px-6 mb-12 lg:mb-20 text-center">
         <motion.span 
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -79,7 +80,7 @@ export function TestimonialBook() {
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          className="text-4xl md:text-7xl font-display font-bold leading-tight text-white"
+          className="text-4xl lg:text-6xl xl:text-7xl font-display font-bold leading-tight text-white"
         >
           Client <span className="text-gradient">Wall of Fame</span>
         </motion.h2>
@@ -89,8 +90,8 @@ export function TestimonialBook() {
         <div className="relative group">
           {/* @ts-ignore */}
           <HTMLFlipBook
-            width={isSmallScreen ? 320 : 450}
-            height={isSmallScreen ? 480 : 600}
+            width={isSmallScreen ? 320 : (isLaptop ? 400 : 450)}
+            height={isSmallScreen ? 480 : (isLaptop ? 540 : 600)}
             size="fixed"
             minWidth={315}
             maxWidth={1000}

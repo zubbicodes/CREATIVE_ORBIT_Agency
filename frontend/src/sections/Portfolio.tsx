@@ -23,9 +23,9 @@ function ProjectRow({ project, index }: { project: any; index: number }) {
   const imageY = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
   return (
-    <div ref={containerRef} className="py-24 md:py-48 relative border-b border-white/5 last:border-0">
+    <div ref={containerRef} className="py-20 lg:py-32 xl:py-48 relative border-b border-white/5 last:border-0">
       <div className={cn(
-        "container mx-auto px-6 flex flex-col gap-12 lg:gap-32 items-center",
+        "container mx-auto px-6 flex flex-col gap-12 lg:gap-20 xl:gap-32 items-center",
         isEven ? "lg:flex-row" : "lg:flex-row-reverse"
       )}>
         {/* Project Info */}
@@ -43,7 +43,7 @@ function ProjectRow({ project, index }: { project: any; index: number }) {
                 {project.category}
               </span>
             </div>
-            <h3 className="text-5xl md:text-8xl font-display font-bold leading-[0.9] tracking-tighter text-white">
+            <h3 className="text-4xl sm:text-5xl lg:text-7xl xl:text-8xl font-display font-bold leading-[0.9] tracking-tighter text-white">
               {(project.name || project.title).split(' ').map((word: string, i: number) => (
                 <span key={i} className="inline-block overflow-hidden mr-3">
                   <motion.span
@@ -201,7 +201,7 @@ export function Portfolio() {
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          className="text-4xl md:text-7xl font-display font-bold leading-tight text-white"
+          className="text-4xl lg:text-6xl xl:text-7xl font-display font-bold leading-tight text-white"
         >
           Featured <span className="text-gradient">Portfolio</span>
         </motion.h2>

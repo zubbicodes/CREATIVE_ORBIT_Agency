@@ -273,7 +273,7 @@ export function Packages() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-3xl sm:text-4xl md:text-7xl font-display font-bold leading-tight mb-4 md:mb-6"
+            className="text-3xl sm:text-4xl lg:text-6xl xl:text-7xl font-display font-bold leading-tight mb-4 md:mb-6"
           >
             Service <span className="text-gradient">Packages</span>
           </motion.h2>

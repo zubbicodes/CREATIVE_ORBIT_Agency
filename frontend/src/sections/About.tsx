@@ -60,7 +60,7 @@ export function About({ settings }: { settings: any }) {
       />
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 xl:gap-16 items-start">
           
           {/* Left Side: Text Narrative (5 Columns) */}
           <div className="lg:col-span-5 space-y-10 md:space-y-12">
@@ -73,7 +73,7 @@ export function About({ settings }: { settings: any }) {
               <span className="text-xs font-bold uppercase tracking-[0.3em] text-accent-cyan mb-4 md:mb-6 block">
                 Innovative Agency
               </span>
-              <h2 className="text-4xl sm:text-5xl md:text-7xl font-display font-bold mb-6 md:mb-8 leading-[1.1]">
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-display font-bold mb-6 md:mb-8 leading-[1.1]">
                 Redefining the <span className="text-gradient">Digital</span> Frontier.
               </h2>
               <p className="text-base md:text-lg text-white/40 leading-relaxed max-w-xl">
