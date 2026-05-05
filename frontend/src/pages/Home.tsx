@@ -25,11 +25,6 @@ export function Home({ settings }: { settings: any }) {
 
     gsap.ticker.lagSmoothing(0);
 
-    // Initial refresh after a short delay to ensure components are mounted
-    setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 500);
-
     return () => {
       lenis.destroy();
       gsap.ticker.remove(lenis.raf);
