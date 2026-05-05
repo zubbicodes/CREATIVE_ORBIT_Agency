@@ -132,8 +132,17 @@ export function Services() {
             transition={{ duration: 0.8, delay: 0.1 }}
             className="text-3xl sm:text-4xl lg:text-6xl xl:text-7xl font-display font-bold leading-tight"
           >
-            Our <span className="text-gradient">Expertise</span>
+            No jargon. No delays. <span className="text-gradient">No guesswork.</span>
           </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="max-w-3xl mx-auto mt-6 text-sm md:text-lg text-white/60"
+          >
+            We focus on what matters, building digital solutions that look professional, work properly, and help your business grow.
+          </motion.p>
         </div>
 
         {/* Categories Tabs */}

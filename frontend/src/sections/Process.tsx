@@ -8,32 +8,32 @@ gsap.registerPlugin(ScrollTrigger);
 
 const steps = [
   {
-    title: "Conceptualize",
-    desc: "We dive deep into your vision, target audience, and business goals to draft a bulletproof strategy.",
+    title: "Initial Call",
+    desc: "We understand your business and goals",
     icon: <Lightbulb className="w-12 h-12" />,
     color: "from-yellow-400 to-orange-500"
   },
   {
-    title: "Design & UX",
-    desc: "Crafting intuitive, premium interfaces that resonate with users and define your brand's digital presence.",
+    title: "Planning",
+    desc: "Clear structure and timeline",
     icon: <Rocket className="w-12 h-12" />,
     color: "from-accent-cyan to-blue-500"
   },
   {
-    title: "Engineering",
-    desc: "Writing clean, scalable code using cutting-edge technologies to bring your product to life.",
+    title: "Build",
+    desc: "Design and development begins",
     icon: <Code2 className="w-12 h-12" />,
     color: "from-accent-purple to-pink-500"
   },
   {
-    title: "Optimization",
-    desc: "Rigorous testing and performance tuning to ensure your software is lightning-fast and secure.",
+    title: "Review",
+    desc: "You approve before launch",
     icon: <ShieldCheck className="w-12 h-12" />,
     color: "from-green-400 to-emerald-600"
   },
   {
-    title: "Launch",
-    desc: "Deploying your solution with full-scale support and an iterative growth strategy.",
+    title: "Launch & Support",
+    desc: "We stay available if needed",
     icon: <CheckCircle2 className="w-12 h-12" />,
     color: "from-blue-400 to-accent-cyan"
   }
@@ -74,14 +74,14 @@ export function Process() {
             whileInView={{ opacity: 1, y: 0 }}
             className="text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] text-accent-cyan mb-3 md:mb-4 block text-center lg:text-left"
           >
-            How We Work
+            How It Works
           </motion.span>
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             className="text-3xl md:text-6xl font-display font-bold leading-tight text-center lg:text-left"
           >
-            The <span className="text-gradient">Process</span>
+            How <span className="text-gradient">It Works</span>
           </motion.h2>
         </div>
 

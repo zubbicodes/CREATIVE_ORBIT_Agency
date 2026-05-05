@@ -118,7 +118,18 @@ export function Navigation({ settings }: { settings: any }) {
           ))}
           
           <div className="ml-2 lg:ml-4 pl-2 lg:pl-4 border-l border-white/10">
-            <button className="group px-4 lg:px-6 py-2.5 bg-accent-cyan text-primary font-bold rounded-full text-[10px] lg:text-xs hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2 shadow-[0_0_20px_rgba(0,242,255,0.2)]">
+            <button
+              onClick={() => {
+                const el = document.getElementById('contact');
+                if (el) {
+                  const offset = el.offsetTop - 100;
+                  window.scrollTo({ top: offset, behavior: 'smooth' });
+                } else {
+                  window.location.href = '/#contact';
+                }
+              }}
+              className="group px-4 lg:px-6 py-2.5 bg-accent-cyan text-primary font-bold rounded-full text-[10px] lg:text-xs hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2 shadow-[0_0_20px_rgba(0,242,255,0.2)]"
+            >
               Get Started
               <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
             </button>
@@ -161,7 +172,19 @@ export function Navigation({ settings }: { settings: any }) {
                 {link.name}
               </motion.button>
             ))}
-            <button className="w-full py-4 bg-accent-cyan text-primary font-bold rounded-2xl text-xs uppercase tracking-widest shadow-lg">
+            <button
+              onClick={() => {
+                setIsOpen(false);
+                const el = document.getElementById('contact');
+                if (el) {
+                  const offset = el.offsetTop - 100;
+                  window.scrollTo({ top: offset, behavior: 'smooth' });
+                } else {
+                  window.location.href = '/#contact';
+                }
+              }}
+              className="w-full py-4 bg-accent-cyan text-primary font-bold rounded-2xl text-xs uppercase tracking-widest shadow-lg"
+            >
               Get Started
             </button>
           </motion.div>

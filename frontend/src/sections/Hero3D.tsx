@@ -12,7 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 function Scene() {
   const meshRef = useRef<THREE.Mesh>(null);
-  
+
   useFrame((state) => {
     if (!meshRef.current) return;
     meshRef.current.rotation.x = state.clock.getElapsedTime() * 0.2;
@@ -24,7 +24,7 @@ function Scene() {
       <ambientLight intensity={1} />
       <pointLight position={[10, 10, 10]} intensity={1.5} color="#00F2FF" />
       <spotLight position={[-10, 10, 10]} angle={0.15} penumbra={1} intensity={2} color="#7000FF" />
-      
+
       <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
         <Sphere ref={meshRef} args={[1, 128, 128]} scale={window.innerWidth < 768 ? 1.5 : 2.2}>
           <MeshDistortMaterial
@@ -48,7 +48,7 @@ export function Hero3D({ settings }: { settings: any }) {
   const textRef = useRef<HTMLHeadingElement>(null);
   const paraRef = useRef<HTMLParagraphElement>(null);
   const { scrollY } = useScroll();
-  
+
   const y1 = useTransform(scrollY, [0, 500], [0, 200]);
   const scale = useTransform(scrollY, [0, 500], [1, 0.8]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
@@ -59,7 +59,7 @@ export function Hero3D({ settings }: { settings: any }) {
     const ctx = gsap.context(() => {
       // Entrance Animation
       const tl = gsap.timeline();
-      
+
       // Tagline reveal
       tl.from(".hero-tagline", {
         opacity: 0,
@@ -67,29 +67,29 @@ export function Hero3D({ settings }: { settings: any }) {
         duration: 0.8,
         ease: "power3.out"
       })
-      // Character reveal for the main title
-      .from(".hero-char", {
-        opacity: 0,
-        y: 40,
-        rotateX: -90,
-        stagger: 0.02,
-        duration: 1,
-        ease: "power4.out",
-      }, "-=0.4")
-      // Paragraph reveal
-      .from(paraRef.current, {
-        opacity: 0,
-        y: 20,
-        duration: 0.8,
-        ease: "power3.out"
-      }, "-=0.6")
-      // Button reveal
-      .from(".hero-btn", {
-        opacity: 0,
-        scale: 0.8,
-        duration: 0.6,
-        ease: "back.out(1.7)"
-      }, "-=0.4");
+        // Character reveal for the main title
+        .from(".hero-char", {
+          opacity: 0,
+          y: 40,
+          rotateX: -90,
+          stagger: 0.02,
+          duration: 1,
+          ease: "power4.out",
+        }, "-=0.4")
+        // Paragraph reveal
+        .from(paraRef.current, {
+          opacity: 0,
+          y: 20,
+          duration: 0.8,
+          ease: "power3.out"
+        }, "-=0.6")
+        // Button reveal
+        .from(".hero-btn", {
+          opacity: 0,
+          scale: 0.8,
+          duration: 0.6,
+          ease: "back.out(1.7)"
+        }, "-=0.4");
 
       // Scroll Animation (Parallax)
       gsap.to(textRef.current, {
@@ -114,9 +114,9 @@ export function Hero3D({ settings }: { settings: any }) {
   return (
     <section ref={containerRef} className="relative min-h-[100dvh] flex flex-col items-center justify-center pt-20 overflow-hidden bg-primary">
       {/* 3D Background with Parallax */}
-      <motion.div 
+      <motion.div
         style={{ y: y1, scale, opacity }}
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 z-0 pointer-events-none"
       >
         <Canvas camera={{ position: [0, 0, 5], fov: window.innerWidth < 768 ? 90 : 75 }} gl={{ antialias: true }}>
           <Suspense fallback={null}>
@@ -126,16 +126,16 @@ export function Hero3D({ settings }: { settings: any }) {
       </motion.div>
 
       {/* Decorative Glows */}
-      <div className="absolute top-1/4 -left-1/4 w-[80%] md:w-[50%] h-[80%] md:h-[50%] bg-accent-purple/10 blur-[100px] md:blur-[120px] rounded-full" />
-      <div className="absolute bottom-1/4 -right-1/4 w-[80%] md:w-[50%] h-[80%] md:h-[50%] bg-accent-cyan/10 blur-[100px] md:blur-[120px] rounded-full" />
+      <div className="absolute top-1/4 -left-1/4 w-[80%] md:w-[50%] h-[80%] md:h-[50%] bg-accent-purple/10 blur-[100px] md:blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-1/4 -right-1/4 w-[80%] md:w-[50%] h-[80%] md:h-[50%] bg-accent-cyan/10 blur-[100px] md:blur-[120px] rounded-full pointer-events-none" />
 
       {/* Content */}
-      <div className="container mx-auto px-6 relative z-10 text-center">
+      <div className="container mx-auto px-6 relative z-30 text-center">
         <div className="perspective-1000">
           <span className="hero-tagline inline-block px-4 py-1.5 mb-6 text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase bg-white/5 border border-white/10 rounded-full text-accent-cyan">
             {settings?.tagline || 'Next-Gen Software Solutions'}
           </span>
-          
+
           <h1 ref={textRef} className="text-[2.5rem] sm:text-6xl lg:text-7xl xl:text-8xl font-display font-extrabold mb-8 leading-[1.1] tracking-tight py-4 max-w-6xl mx-auto">
             {[agencyName, 'is', 'the', 'Future'].map((word, i) => {
               const isGradient = i === 0 || word === 'Future';
@@ -145,8 +145,8 @@ export function Hero3D({ settings }: { settings: any }) {
                   className="inline-block mr-2 md:mr-4 uppercase"
                 >
                   {word.split('').map((char, charIdx) => (
-                    <span 
-                      key={charIdx} 
+                    <span
+                      key={charIdx}
                       className={cn(
                         "hero-char inline-block origin-bottom",
                         isGradient ? "text-gradient" : "text-white"
@@ -159,17 +159,33 @@ export function Hero3D({ settings }: { settings: any }) {
               );
             })}
           </h1>
-          
+
           <p ref={paraRef} className="max-w-xl md:max-w-2xl mx-auto text-sm md:text-xl text-white/50 mb-10 md:mb-12 leading-relaxed px-4 md:px-0">
-            We architect scalable software, intuitive interfaces, and high-performance 
-            mobile ecosystems for global enterprises.
+            We help UK businesses design, build, and grow online with reliable, high-performing websites, apps, and marketing; without the usual hassle.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6">
-            <button className="hero-btn w-full sm:w-auto px-8 py-4 bg-accent-cyan text-primary font-bold rounded-full flex items-center justify-center gap-2 group hover:scale-105 transition-all" data-magnetic>
-              Start Your Project
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 relative z-40">
+            <a href="/#contact" className="hero-btn w-full sm:w-auto px-8 py-4 bg-accent-cyan text-primary font-bold rounded-full flex items-center justify-center gap-2 group hover:scale-105 transition-all" data-magnetic>
+              Get a Quote
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </button>
+            </a>
+
+            <a
+              href="#portfolio"
+              onClick={(e) => {
+                e.preventDefault();
+                const el = document.getElementById('portfolio');
+                if (el) {
+                  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                  window.location.href = '/#portfolio';
+                }
+              }}
+              className="hero-btn w-full sm:w-auto px-8 py-4 bg-transparent border border-white/10 text-white font-bold rounded-full flex items-center justify-center gap-2 hover:bg-white/5 transition-all"
+              data-magnetic
+            >
+              View Our Work
+            </a>
           </div>
         </div>
       </div>
