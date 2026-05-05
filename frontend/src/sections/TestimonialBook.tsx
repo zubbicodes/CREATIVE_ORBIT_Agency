@@ -117,7 +117,7 @@ export function TestimonialBook() {
           >
             {/* Front Cover */}
             <div className="bg-[#0a0a0a] border border-white/5 p-12 flex flex-col items-center justify-center text-center shadow-inner overflow-hidden relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-accent-cyan/10 via-transparent to-accent-purple/10" />
+              <div className="absolute inset-0 bg-gradient-to-br from-accent-cyan/10 via-transparent to-accent-cyan/5" />
               <div className="relative z-10 space-y-8">
                 <div className="w-24 h-24 bg-white/5 rounded-3xl flex items-center justify-center mx-auto border border-white/10 group-hover:rotate-12 transition-transform duration-700">
                   <Quote size={48} className="text-accent-cyan fill-accent-cyan/20" />
@@ -193,7 +193,7 @@ export function TestimonialBook() {
 
             {/* Back Cover */}
             <div className="bg-[#0a0a0a] border border-white/5 p-12 flex flex-col items-center justify-center text-center shadow-inner relative">
-               <div className="absolute inset-0 bg-gradient-to-tl from-accent-cyan/10 via-transparent to-accent-purple/10" />
+               <div className="absolute inset-0 bg-gradient-to-tl from-accent-cyan/10 via-transparent to-accent-cyan/5" />
                <h3 className="text-3xl font-display font-bold text-white relative z-10">Thank You!</h3>
                <p className="text-white/40 mt-4 relative z-10">Your feedback drives <br /> our innovation.</p>
                <div className="mt-12 w-12 h-12 rounded-full border border-white/10 flex items-center justify-center relative z-10">

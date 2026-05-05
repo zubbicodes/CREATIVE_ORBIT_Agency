@@ -176,13 +176,14 @@ export function Hero3D({ settings }: { settings: any }) {
 
       {/* Scroll Indicator */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 1 }}
-        className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2, duration: 1 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
-        <span className="text-[8px] md:text-[10px] uppercase tracking-widest text-white/20 font-bold">Explore</span>
-        <div className="w-px h-8 md:h-12 bg-gradient-to-b from-accent-cyan to-transparent" />
+        <div className="mouse-scroll">
+          <div className="wheel"></div>
+        </div>
       </motion.div>
     </section>
   );
