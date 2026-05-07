@@ -118,7 +118,7 @@ export function Hero3D({ settings }: { settings: any }) {
         style={{ y: y1, scale, opacity }}
         className="absolute inset-0 z-0 pointer-events-none"
       >
-        <Canvas camera={{ position: [0, 0, 5], fov: window.innerWidth < 768 ? 90 : 75 }} gl={{ antialias: true }}>
+        <Canvas camera={{ position: [0, 0, 5], fov: window.innerWidth < 640 ? 100 : window.innerWidth < 768 ? 90 : 75 }} gl={{ antialias: true }}>
           <Suspense fallback={null}>
             <Scene />
           </Suspense>
@@ -136,7 +136,7 @@ export function Hero3D({ settings }: { settings: any }) {
             {settings?.tagline || 'Next-Gen Software Solutions'}
           </span>
 
-          <h1 ref={textRef} className="text-[2.5rem] sm:text-6xl lg:text-7xl xl:text-8xl font-display font-extrabold mb-8 leading-[1.1] tracking-tight py-4 max-w-6xl mx-auto">
+          <h1 ref={textRef} className="text-[2rem] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-display font-extrabold mb-6 md:mb-8 leading-[1.1] tracking-tight py-4 max-w-6xl mx-auto">
             {[agencyName, 'is', 'the', 'Future'].map((word, i) => {
               const isGradient = i === 0 || word === 'Future';
               return (
@@ -160,14 +160,14 @@ export function Hero3D({ settings }: { settings: any }) {
             })}
           </h1>
 
-          <p ref={paraRef} className="max-w-xl md:max-w-2xl mx-auto text-sm md:text-xl text-white/50 mb-10 md:mb-12 leading-relaxed px-4 md:px-0">
+          <p ref={paraRef} className="max-w-lg md:max-w-2xl mx-auto text-xs sm:text-sm md:text-lg lg:text-xl text-white/50 mb-8 md:mb-12 leading-relaxed px-4 md:px-0">
             We help UK businesses design, build, and grow online with reliable, high-performing websites, apps, and marketing; without the usual hassle.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 relative z-40">
-            <a href="/#contact" className="hero-btn w-full sm:w-auto px-8 py-4 bg-accent-cyan text-primary font-bold rounded-full flex items-center justify-center gap-2 group hover:scale-105 transition-all" data-magnetic>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 md:gap-6 relative z-40 w-full sm:w-auto max-w-md sm:max-w-none mx-auto sm:mx-0">
+            <a href="/#contact" className="hero-btn w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-accent-cyan text-primary font-bold rounded-full flex items-center justify-center gap-2 group hover:scale-105 transition-all text-sm sm:text-base" data-magnetic>
               Get a Quote
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
             </a>
 
             <a
@@ -181,7 +181,7 @@ export function Hero3D({ settings }: { settings: any }) {
                   window.location.href = '/#portfolio';
                 }
               }}
-              className="hero-btn w-full sm:w-auto px-8 py-4 bg-transparent border border-white/10 text-white font-bold rounded-full flex items-center justify-center gap-2 hover:bg-white/5 transition-all"
+              className="hero-btn w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-transparent border border-white/10 text-white font-bold rounded-full flex items-center justify-center gap-2 hover:bg-white/5 transition-all text-sm sm:text-base"
               data-magnetic
             >
               View Our Work

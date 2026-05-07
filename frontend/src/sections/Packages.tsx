@@ -352,7 +352,7 @@ export function Packages() {
       {/* Order Modal */}
       <AnimatePresence>
         {isModalOpen && selectedPackage && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -365,9 +365,9 @@ export function Packages() {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative w-full max-w-lg glass-card rounded-[2rem] md:rounded-[2.5rem] shadow-2xl overflow-hidden border-white/10"
+              className="relative w-full max-w-md sm:max-w-lg glass-card rounded-[1.5rem] md:rounded-[2.5rem] shadow-2xl overflow-hidden border-white/10 max-h-[90vh] overflow-y-auto"
             >
-              <div className="p-6 md:p-8">
+              <div className="p-5 sm:p-6 md:p-8">
                 <div className="flex justify-between items-center mb-6 md:mb-8">
                   <div>
                     <h2 className="text-xl md:text-2xl font-display font-bold text-white">Order: {selectedPackage.name}</h2>

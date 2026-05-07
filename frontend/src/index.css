@@ -35,6 +35,130 @@
 body {
   margin: 0;
   overflow-x: hidden;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Responsive text sizing */
+.text-responsive-xs {
+  font-size: clamp(0.625rem, 1.5vw, 0.75rem);
+}
+
+.text-responsive-sm {
+  font-size: clamp(0.75rem, 2vw, 0.875rem);
+}
+
+.text-responsive-base {
+  font-size: clamp(0.875rem, 2.5vw, 1rem);
+}
+
+.text-responsive-lg {
+  font-size: clamp(1rem, 3vw, 1.125rem);
+}
+
+.text-responsive-xl {
+  font-size: clamp(1.25rem, 4vw, 1.5rem);
+}
+
+.text-responsive-2xl {
+  font-size: clamp(1.5rem, 5vw, 2rem);
+}
+
+.text-responsive-3xl {
+  font-size: clamp(1.875rem, 6vw, 2.5rem);
+}
+
+.text-responsive-4xl {
+  font-size: clamp(2.25rem, 7vw, 3rem);
+}
+
+.text-responsive-5xl {
+  font-size: clamp(3rem, 8vw, 4rem);
+}
+
+.text-responsive-6xl {
+  font-size: clamp(3.75rem, 9vw, 5rem);
+}
+
+.text-responsive-7xl {
+  font-size: clamp(4.5rem, 10vw, 6rem);
+}
+
+.text-responsive-8xl {
+  font-size: clamp(5rem, 11vw, 7rem);
+}
+
+/* Responsive spacing */
+.space-responsive-xs {
+  padding: clamp(0.5rem, 2vw, 1rem);
+}
+
+.space-responsive-sm {
+  padding: clamp(1rem, 3vw, 1.5rem);
+}
+
+.space-responsive-md {
+  padding: clamp(1.5rem, 4vw, 2rem);
+}
+
+.space-responsive-lg {
+  padding: clamp(2rem, 5vw, 3rem);
+}
+
+.space-responsive-xl {
+  padding: clamp(3rem, 6vw, 4rem);
+}
+
+/* Mobile-first responsive containers */
+.container-responsive {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-responsive {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .container-responsive {
+    padding: 0 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-responsive {
+    padding: 0 2.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container-responsive {
+    padding: 0 3rem;
+  }
+}
+
+/* Improved mobile touch targets */
+@media (max-width: 768px) {
+  button, a, input, textarea, select {
+    min-height: 44px;
+  }
+  
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Smooth scroll behavior for mobile */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 @media (pointer: fine) {
