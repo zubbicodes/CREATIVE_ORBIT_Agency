@@ -90,6 +90,7 @@ export function TestimonialBook() {
         <div className="relative group">
           {/* @ts-ignore */}
           <HTMLFlipBook
+            key={`flipbook-${testimonials.length}`}
             width={isSmallScreen ? 320 : (isLaptop ? 400 : 450)}
             height={isSmallScreen ? 480 : (isLaptop ? 540 : 600)}
             size="fixed"

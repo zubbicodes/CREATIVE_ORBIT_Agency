@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle2, XCircle, Trash2, Clock, Star, Search, Filter, ExternalLink, Copy } from 'lucide-react';
+import { AdminLayout } from './AdminLayout';
 import { cn } from '../utils/cn';
 
 export function Testimonials() {
@@ -76,8 +77,9 @@ export function Testimonials() {
   });
 
   return (
-    <div className="space-y-8">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+    <AdminLayout title="Testimonials">
+      <div className="space-y-8">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
           <h1 className="text-3xl font-bold text-white mb-2">Testimonials Management</h1>
           <p className="text-white/40">Review and approve client feedback for the live site.</p>
@@ -203,5 +205,6 @@ export function Testimonials() {
         </div>
       )}
     </div>
+    </AdminLayout>
   );
 }
