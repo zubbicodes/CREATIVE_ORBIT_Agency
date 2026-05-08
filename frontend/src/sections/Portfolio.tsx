@@ -231,24 +231,24 @@ function ScrollableProjectShowcase({ projects }: { projects: any[] }) {
             </div>
           </div>
 
-          <div className="container mx-auto px-4 sm:px-6 relative z-10">
-            <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+          <div className="container mx-auto px-4 sm:px-6 relative z-10 pt-16 lg:pt-0">
+            <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-20">
               {/* Project Info */}
-              <div className="flex-1 text-center lg:text-left space-y-8">
+              <div className="flex-1 text-center lg:text-left space-y-4 lg:space-y-8">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: false }}
                   transition={{ delay: 0.2 }}
-                  className="space-y-4"
+                  className="space-y-2 lg:space-y-4"
                 >
                   <div className="flex items-center gap-3 justify-center lg:justify-start">
-                    <span className="w-8 h-px bg-accent-cyan/50" />
-                    <span className="text-accent-cyan font-bold uppercase tracking-[0.4em] text-[10px]">
+                    <span className="w-6 lg:w-8 h-px bg-accent-cyan/50" />
+                    <span className="text-accent-cyan font-bold uppercase tracking-[0.4em] text-[8px] lg:text-[10px]">
                       {project.category}
                     </span>
                   </div>
-                  <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-bold leading-[0.9] tracking-tighter text-white">
+                  <h3 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-bold leading-[0.9] tracking-tighter text-white">
                     {project.name || project.title}
                   </h3>
                 </motion.div>
@@ -258,7 +258,7 @@ function ScrollableProjectShowcase({ projects }: { projects: any[] }) {
                   whileInView={{ opacity: 1 }}
                   viewport={{ once: false }}
                   transition={{ delay: 0.4 }}
-                  className="text-white/40 text-base md:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0 font-medium"
+                  className="text-white/40 text-xs sm:text-sm lg:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0 font-medium"
                 >
                   {project.description}
                 </motion.p>
@@ -268,13 +268,13 @@ function ScrollableProjectShowcase({ projects }: { projects: any[] }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: false }}
                   transition={{ delay: 0.6 }}
-                  className="space-y-6"
+                  className="space-y-4 lg:space-y-6"
                 >
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+                  <div className="grid grid-cols-2 gap-2 lg:gap-6 text-left">
                     {(project.results || []).slice(0, 4).map((res: string) => (
-                      <div key={res} className="flex items-start gap-4 group">
-                        <div className="mt-1 w-2 h-2 rounded-full bg-accent-cyan group-hover:scale-150 transition-transform shadow-[0_0_15px_rgba(0,242,255,0.5)]" />
-                        <span className="text-sm md:text-base font-bold text-white/70 uppercase tracking-widest">{res}</span>
+                      <div key={res} className="flex items-start gap-2 lg:gap-4 group">
+                        <div className="mt-1 w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full bg-accent-cyan group-hover:scale-150 transition-transform shadow-[0_0_15px_rgba(0,242,255,0.5)] shrink-0" />
+                        <span className="text-[9px] sm:text-[10px] lg:text-base font-bold text-white/70 uppercase tracking-widest leading-tight">{res}</span>
                       </div>
                     ))}
                   </div>
@@ -285,17 +285,18 @@ function ScrollableProjectShowcase({ projects }: { projects: any[] }) {
                   whileInView={{ opacity: 1 }}
                   viewport={{ once: false }}
                   transition={{ delay: 0.8 }}
+                  className="pt-2 lg:pt-0 flex justify-center lg:justify-start"
                 >
                   <Link to={`/project/${project._id}`}>
                     <motion.button 
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="flex items-center gap-6 group"
+                      className="flex items-center gap-3 lg:gap-6 group"
                     >
-                      <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center group-hover:border-accent-cyan group-hover:bg-accent-cyan transition-all duration-500">
-                        <ArrowRight size={24} className="text-white group-hover:text-primary group-hover:-rotate-45 transition-all" />
+                      <div className="w-10 h-10 lg:w-16 lg:h-16 rounded-full border border-white/10 flex items-center justify-center group-hover:border-accent-cyan group-hover:bg-accent-cyan transition-all duration-500">
+                        <ArrowRight className="w-4 h-4 lg:w-6 lg:h-6 text-white group-hover:text-primary group-hover:-rotate-45 transition-all" />
                       </div>
-                      <span className="text-sm font-bold uppercase tracking-[0.3em] text-white/60 group-hover:text-white transition-colors">
+                      <span className="text-[10px] lg:text-sm font-bold uppercase tracking-[0.3em] text-white/60 group-hover:text-white transition-colors">
                         View Case Study
                       </span>
                     </motion.button>
@@ -311,7 +312,7 @@ function ScrollableProjectShowcase({ projects }: { projects: any[] }) {
                 transition={{ delay: 0.4 }}
                 className="flex-1 relative w-full"
               >
-                <div className="relative rounded-[1.5rem] md:rounded-[2.5rem] lg:rounded-[4rem] overflow-hidden border border-white/5 aspect-[4/3] md:aspect-[3/4] lg:aspect-[5/6] shadow-2xl">
+                <div className="relative rounded-2xl lg:rounded-[4rem] overflow-hidden border border-white/5 aspect-video md:aspect-[3/4] lg:aspect-[5/6] shadow-2xl">
                   <img 
                     src={project.image} 
                     alt={project.name || project.title}

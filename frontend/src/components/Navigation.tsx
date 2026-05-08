@@ -88,7 +88,7 @@ export function Navigation({ settings }: { settings: any }) {
         </motion.div>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-1 lg:gap-2">
+        <div className="hidden xl:flex items-center gap-1 xl:gap-2">
           {navLinks.map((link, i) => (
             <motion.div
               key={link.name}
@@ -139,7 +139,7 @@ export function Navigation({ settings }: { settings: any }) {
         {/* Mobile Toggle */}
         <button
           className={cn(
-            "md:hidden w-10 h-10 rounded-xl flex items-center justify-center transition-all",
+            "xl:hidden w-10 h-10 rounded-xl flex items-center justify-center transition-all",
             isOpen ? "bg-white text-primary" : "bg-white/5 text-white"
           )}
           onClick={() => setIsOpen(!isOpen)}
@@ -155,7 +155,7 @@ export function Navigation({ settings }: { settings: any }) {
             initial={{ opacity: 0, scale: 0.95, y: -20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -20 }}
-            className="absolute top-20 left-4 right-4 glass-card rounded-[2rem] p-8 flex flex-col items-center gap-6 md:hidden border-white/5 shadow-2xl z-[60]"
+            className="absolute top-20 left-4 right-4 glass-card rounded-[2rem] p-8 flex flex-col items-center gap-6 xl:hidden border-white/5 shadow-2xl z-[60]"
           >
             {navLinks.map((link, i) => (
               <motion.button
