@@ -261,9 +261,9 @@ export function Contact({ settings }: { settings: any }) {
                 rotate: [0, 5, 0]
               }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-10 -right-10 w-24 h-24 bg-accent-cyan/10 backdrop-blur-xl border border-white/10 rounded-3xl flex items-center justify-center shadow-2xl z-20 pointer-events-none"
+              className="absolute -top-4 -right-4 md:-top-10 md:-right-10 w-16 h-16 md:w-24 md:h-24 bg-accent-cyan/10 backdrop-blur-xl border border-white/10 rounded-2xl md:rounded-3xl flex items-center justify-center shadow-2xl z-20 pointer-events-none"
             >
-              <Send className="text-accent-cyan w-10 h-10" />
+              <Send className="text-accent-cyan w-6 h-6 md:w-10 md:h-10" />
             </motion.div>
           </motion.div>
         </div>

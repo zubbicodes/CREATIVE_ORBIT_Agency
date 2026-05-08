@@ -22,6 +22,16 @@ import { Settings } from './admin/Settings';
 import { MagneticCursor } from './components/MagneticCursor';
 
 import { AdminRedirect } from './admin/AdminRedirect';
+import { WhatsAppWidget } from './components/WhatsAppWidget';
+import { useLocation } from 'react-router-dom';
+
+function GlobalWidgets() {
+  const location = useLocation();
+  const isHidden = location.pathname.startsWith('/admin') || location.pathname === '/login';
+  
+  if (isHidden) return null;
+  return <WhatsAppWidget />;
+}
 
 function App() {
   const [settings, setSettings] = useState<any>(null);
@@ -48,6 +58,7 @@ function App() {
   return (
     <BrowserRouter>
       <MagneticCursor />
+      <GlobalWidgets />
       <Routes>
         {/* Main Website */}
         <Route 

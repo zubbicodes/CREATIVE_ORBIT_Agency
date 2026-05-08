@@ -117,26 +117,26 @@ export function TestimonialBook() {
             disableFlipByClick={false}
           >
             {/* Front Cover */}
-            <div className="bg-[#0a0a0a] border border-white/5 p-12 flex flex-col items-center justify-center text-center shadow-inner overflow-hidden relative">
+            <div className="bg-[#0a0a0a] border border-white/5 p-6 md:p-12 flex flex-col items-center justify-center text-center shadow-inner overflow-hidden relative">
               <div className="absolute inset-0 bg-gradient-to-br from-accent-cyan/10 via-transparent to-accent-cyan/5" />
-              <div className="relative z-10 space-y-8">
-                <div className="w-24 h-24 bg-white/5 rounded-3xl flex items-center justify-center mx-auto border border-white/10 group-hover:rotate-12 transition-transform duration-700">
-                  <Quote size={48} className="text-accent-cyan fill-accent-cyan/20" />
+              <div className="relative z-10 space-y-6 md:space-y-8">
+                <div className="w-16 h-16 md:w-24 md:h-24 bg-white/5 rounded-3xl flex items-center justify-center mx-auto border border-white/10 group-hover:rotate-12 transition-transform duration-700">
+                  <Quote className="w-8 h-8 md:w-12 md:h-12 text-accent-cyan fill-accent-cyan/20" />
                 </div>
-                <h3 className="text-4xl font-display font-black tracking-tighter text-white">
+                <h3 className="text-2xl md:text-4xl font-display font-black tracking-tighter text-white leading-tight">
                   CREATIVE <br /> <span className="text-accent-cyan">ORBIT</span> <br /> JOURNALS
                 </h3>
-                <div className="w-16 h-1 bg-accent-cyan mx-auto rounded-full" />
-                <p className="text-sm text-white/40 uppercase tracking-[0.3em] font-bold">
+                <div className="w-12 md:w-16 h-1 bg-accent-cyan mx-auto rounded-full" />
+                <p className="text-[10px] md:text-sm text-white/40 uppercase tracking-[0.3em] font-bold">
                   Testimonials Edition <br /> 2026
                 </p>
               </div>
             </div>
 
             {/* Index / Intro Page */}
-            <div className="bg-zinc-900 border border-white/5 p-10 flex flex-col shadow-inner">
-               <h4 className="text-accent-cyan text-xs font-bold uppercase tracking-widest mb-10 border-b border-white/10 pb-4">Table of Contents</h4>
-               <div className="space-y-6">
+            <div className="bg-zinc-900 border border-white/5 p-6 md:p-10 flex flex-col shadow-inner">
+               <h4 className="text-accent-cyan text-[10px] md:text-xs font-bold uppercase tracking-widest mb-6 md:mb-10 border-b border-white/10 pb-4">Table of Contents</h4>
+               <div className="space-y-4 md:space-y-6">
                  {testimonials.map((t, i) => (
                    <button 
                     key={i}
@@ -144,10 +144,10 @@ export function TestimonialBook() {
                     className="w-full flex items-center justify-between group hover:pl-2 transition-all"
                    >
                      <div className="flex items-center gap-3">
-                       <img src={t.image} alt="" className="w-8 h-8 rounded-full border border-white/10" />
-                       <span className="text-white/60 font-bold text-sm group-hover:text-accent-cyan transition-colors">{t.name}</span>
+                       <img src={t.image} alt="" className="w-6 h-6 md:w-8 md:h-8 rounded-full border border-white/10" />
+                       <span className="text-white/60 font-bold text-xs md:text-sm group-hover:text-accent-cyan transition-colors">{t.name}</span>
                      </div>
-                     <span className="text-white/20 font-mono text-xs">pg. {i + 2}</span>
+                     <span className="text-white/20 font-mono text-[10px] md:text-xs">pg. {i + 2}</span>
                    </button>
                  ))}
                </div>
@@ -160,22 +160,22 @@ export function TestimonialBook() {
 
             {/* Testimonial Pages */}
             {testimonials.map((t, i) => (
-              <div key={i} className="bg-[#f5f5f5] p-12 flex flex-col items-center justify-center text-center relative shadow-inner overflow-hidden">
+              <div key={i} className="bg-[#f5f5f5] p-6 md:p-12 flex flex-col items-center justify-center text-center relative shadow-inner overflow-hidden">
                 <div className="absolute top-4 right-6 text-zinc-300 font-mono text-xs">{i + 2}</div>
                 
-                <div className="relative mb-10">
+                <div className="relative mb-6 md:mb-10">
                   <div className="absolute -inset-4 bg-accent-cyan/10 blur-2xl rounded-full" />
-                  <img src={t.image} alt={t.name} className="relative w-32 h-32 rounded-full border-4 border-white shadow-xl object-cover" />
+                  <img src={t.image} alt={t.name} className="relative w-20 h-20 md:w-32 md:h-32 rounded-full border-2 md:border-4 border-white shadow-xl object-cover" />
                 </div>
 
-                <div className="space-y-2 mb-8">
-                  <h4 className="text-2xl font-display font-bold text-zinc-900">{t.name}</h4>
-                  <p className="text-accent-cyan text-xs font-black uppercase tracking-widest">{t.jobtitle}</p>
+                <div className="space-y-1 md:space-y-2 mb-4 md:mb-8">
+                  <h4 className="text-lg md:text-2xl font-display font-bold text-zinc-900">{t.name}</h4>
+                  <p className="text-accent-cyan text-[9px] md:text-xs font-black uppercase tracking-widest">{t.jobtitle}</p>
                 </div>
 
-                <div className="relative mb-10">
-                  <Quote size={40} className="absolute -top-6 -left-6 text-zinc-200 -z-10" />
-                  <p className="text-zinc-600 font-serif text-xl italic leading-relaxed">
+                <div className="relative mb-6 md:mb-10 px-2">
+                  <Quote className="absolute -top-4 -left-2 md:-top-6 md:-left-6 w-6 h-6 md:w-10 md:h-10 text-zinc-200 -z-10" />
+                  <p className="text-zinc-600 font-serif text-sm md:text-xl italic leading-snug md:leading-relaxed">
                     "{t.text}"
                   </p>
                 </div>
@@ -184,8 +184,10 @@ export function TestimonialBook() {
                   {[...Array(5)].map((_, starI) => (
                     <Star 
                       key={starI} 
-                      size={18} 
-                      className={starI < t.rating ? "fill-accent-cyan text-accent-cyan" : "text-zinc-200"} 
+                      className={cn(
+                        "w-4 h-4 md:w-[18px] md:h-[18px]",
+                        starI < t.rating ? "fill-accent-cyan text-accent-cyan" : "text-zinc-200"
+                      )}
                     />
                   ))}
                 </div>
@@ -193,11 +195,11 @@ export function TestimonialBook() {
             ))}
 
             {/* Back Cover */}
-            <div className="bg-[#0a0a0a] border border-white/5 p-12 flex flex-col items-center justify-center text-center shadow-inner relative">
+            <div className="bg-[#0a0a0a] border border-white/5 p-6 md:p-12 flex flex-col items-center justify-center text-center shadow-inner relative">
                <div className="absolute inset-0 bg-gradient-to-tl from-accent-cyan/10 via-transparent to-accent-cyan/5" />
-               <h3 className="text-3xl font-display font-bold text-white relative z-10">Thank You!</h3>
-               <p className="text-white/40 mt-4 relative z-10">Your feedback drives <br /> our innovation.</p>
-               <div className="mt-12 w-12 h-12 rounded-full border border-white/10 flex items-center justify-center relative z-10">
+               <h3 className="text-2xl md:text-3xl font-display font-bold text-white relative z-10">Thank You!</h3>
+               <p className="text-white/40 text-sm md:text-base mt-2 md:mt-4 relative z-10">Your feedback drives <br /> our innovation.</p>
+               <div className="mt-8 md:mt-12 w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/10 flex items-center justify-center relative z-10">
                  <div className="w-2 h-2 bg-accent-cyan rounded-full animate-pulse" />
                </div>
             </div>
