@@ -44,25 +44,34 @@ export function Process() {
   const horizontalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const horizontal = horizontalRef.current;
-      if (!horizontal) return;
-      
-      gsap.to(horizontal, {
-        x: () => -(horizontal.scrollWidth - window.innerWidth),
-        ease: "none",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          pin: true,
-          scrub: 1,
-          start: "top top",
-          end: () => `+=${horizontal.scrollWidth}`,
-          invalidateOnRefresh: true,
-        }
-      });
-    }, containerRef);
+    // Add a small delay to ensure DOM is fully ready for measurement
+    const timer = setTimeout(() => {
+      const ctx = gsap.context(() => {
+        const horizontal = horizontalRef.current;
+        if (!horizontal) return;
+        
+        const scrollWidth = horizontal.scrollWidth;
+        const amountToScroll = scrollWidth - window.innerWidth;
 
-    return () => ctx.revert();
+        gsap.to(horizontal, {
+          x: -amountToScroll,
+          ease: "none",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            pin: true,
+            scrub: 1,
+            start: "top top",
+            end: () => `+=${scrollWidth}`,
+            invalidateOnRefresh: true,
+            anticipatePin: 1,
+          }
+        });
+      }, containerRef);
+
+      return () => ctx.revert();
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -74,7 +83,7 @@ export function Process() {
             whileInView={{ opacity: 1, y: 0 }}
             className="text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] text-accent-cyan mb-3 md:mb-4 block text-center lg:text-left"
           >
-            How It Works
+            Our Strategy
           </motion.span>
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
