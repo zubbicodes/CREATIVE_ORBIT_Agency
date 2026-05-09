@@ -113,13 +113,9 @@ export function Navigation({ settings }: { settings: any }) {
             }
           }}
         >
-          <div className="w-10 h-10 md:w-12 md:h-12 bg-white/5 rounded-xl md:rounded-2xl flex items-center justify-center p-1.5 md:p-2 border border-white/5 group-hover:border-accent-cyan/50 transition-all duration-500 overflow-hidden relative">
-            <img src="/logo.png" alt="Creative Orbit" className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700" />
-            <div className="absolute inset-0 bg-accent-cyan/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+          <div className="w-40 md:w-56 h-12 md:h-16 flex items-center justify-center overflow-hidden relative">
+            <img src="/logo.png?v=1.3" alt="Creative Orbit" className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700" style={{ filter: 'brightness(1.2)' }} />
           </div>
-          <span className="text-base md:text-xl font-display font-bold tracking-tight uppercase">
-            {firstHalf}<span className="text-accent-cyan">{secondHalf}</span>
-          </span>
         </motion.div>
 
         {/* Desktop Nav */}
