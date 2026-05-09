@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Star, Send, CheckCircle2, User, Briefcase, Building, MessageSquare, Image as ImageIcon } from 'lucide-react';
+import { Star, Send, CheckCircle2, User, Briefcase, Building, MessageSquare } from 'lucide-react';
 import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
 
@@ -13,8 +13,7 @@ export function FeedbackSubmission() {
     name: '',
     jobtitle: '',
     company: '',
-    text: '',
-    image: ''
+    text: ''
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -147,18 +146,6 @@ export function FeedbackSubmission() {
                       value={formData.company}
                       onChange={(e) => setFormData({...formData, company: e.target.value})}
                       placeholder="TechCorp Inc."
-                      className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-accent-cyan/50 outline-none transition-all"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-white/30 ml-4 flex items-center gap-2">
-                      <ImageIcon size={12} /> Profile Image URL
-                    </label>
-                    <input 
-                      type="url"
-                      value={formData.image}
-                      onChange={(e) => setFormData({...formData, image: e.target.value})}
-                      placeholder="https://..."
                       className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-accent-cyan/50 outline-none transition-all"
                     />
                   </div>

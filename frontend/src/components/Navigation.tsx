@@ -131,7 +131,7 @@ export function Navigation({ settings }: { settings: any }) {
               <button
                 onClick={() => handleLinkClick(link)}
                 className={cn(
-                  "px-4 lg:px-5 py-2.5 text-[10px] lg:text-xs font-bold uppercase tracking-widest transition-all duration-500 relative z-10",
+                  "px-4 lg:px-5 py-2.5 text-[10px] lg:text-xs font-bold uppercase tracking-widest transition-all duration-500 relative z-10 whitespace-nowrap",
                   activeSection === link.name ? "text-primary" : "text-white/40 hover:text-white"
                 )}
               >
@@ -159,7 +159,7 @@ export function Navigation({ settings }: { settings: any }) {
                   navigate('/#contact');
                 }
               }}
-              className="group px-4 lg:px-6 py-2.5 bg-accent-cyan text-primary font-bold rounded-full text-[10px] lg:text-xs hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2 shadow-[0_0_20px_rgba(0,242,255,0.2)]"
+              className="group px-4 lg:px-6 py-2.5 bg-accent-cyan text-primary font-bold rounded-full text-[10px] lg:text-xs hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2 shadow-[0_0_20px_rgba(0,242,255,0.2)] whitespace-nowrap"
             >
               Get Started
               <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />

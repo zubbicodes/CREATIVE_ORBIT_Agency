@@ -137,7 +137,9 @@ export function Testimonials() {
             >
               <div className="flex justify-between items-start">
                 <div className="flex items-center gap-4">
-                  <img src={t.image} alt="" className="w-12 h-12 rounded-full border border-white/10" />
+                  <div className="w-12 h-12 rounded-full bg-accent-cyan/10 flex items-center justify-center text-accent-cyan font-bold border border-accent-cyan/20">
+                    {t.name.charAt(0)}
+                  </div>
                   <div>
                     <h4 className="font-bold text-white">{t.name}</h4>
                     <p className="text-xs text-white/40">{t.jobtitle} {t.company && `@ ${t.company}`}</p>

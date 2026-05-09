@@ -330,6 +330,7 @@ export function Packages() {
                   whileInView={{ opacity: 1, scale: 1, y: 0 }}
                   viewport={{ once: false }}
                   exit={{ opacity: 0, scale: 0.95, y: -20 }}
+                  className="h-full"
                   transition={{ 
                     duration: 0.6, 
                     delay: index * 0.1,

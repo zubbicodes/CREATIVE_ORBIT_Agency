@@ -4,19 +4,11 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { 
   ArrowLeft, 
   ArrowRight, 
-  Calendar, 
-  Tag, 
   CheckCircle2, 
   Zap, 
-  Globe, 
-  ChevronRight,
   Loader2,
   ExternalLink
 } from 'lucide-react';
-import { Navigation } from '../components/Navigation';
-import { Footer } from '../components/Footer';
-import Lenis from 'lenis';
-import { cn } from '../utils/cn';
 
 interface Project {
   _id: string;
@@ -48,48 +40,62 @@ export function ProjectDetail({ settings }: { settings: any }) {
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0.3]);
 
   useEffect(() => {
-    const lenis = new Lenis();
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-
+    let isMounted = true;
+    
     const fetchProjectData = async () => {
       try {
+        // Only fetch all projects if we don't have nextProject yet or to find it
         const [res, allRes] = await Promise.all([
           fetch(`/api/projects/${id}`),
-          fetch('/api/projects')
+          fetch('/api/projects') // We still need this for "Up Next" navigation
         ]);
         
+        if (!isMounted) return;
+
         const data = await res.json();
         const allData = await allRes.json();
         
         setProject(data);
         
-        // Find next project for navigation
-        const currentIndex = allData.findIndex((p: any) => p._id === id);
-        if (currentIndex !== -1 && currentIndex < allData.length - 1) {
-          setNextProject(allData[currentIndex + 1]);
-        } else if (allData.length > 1) {
-          setNextProject(allData[0]);
+        if (Array.isArray(allData)) {
+          const currentIndex = allData.findIndex((p: any) => p._id === id);
+          if (currentIndex !== -1 && currentIndex < allData.length - 1) {
+            setNextProject(allData[currentIndex + 1]);
+          } else if (allData.length > 1) {
+            setNextProject(allData[0]);
+          }
         }
       } catch (err) {
         console.error('Failed to fetch project', err);
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     };
 
+    setLoading(true);
     fetchProjectData();
-    window.scrollTo(0, 0);
 
     return () => {
-      // Clean up
+      isMounted = false;
     };
   }, [id]);
 
-  if (loading) {
+  const [showLoader, setShowLoader] = useState(false);
+
+  useEffect(() => {
+    if (loading) {
+      const timer = setTimeout(() => setShowLoader(true), 300);
+      return () => clearTimeout(timer);
+    } else {
+      setShowLoader(false);
+    }
+  }, [loading]);
+
+  if (loading && !showLoader) {
+    return <div className="min-h-screen bg-primary" />; // Blank screen while waiting (short time)
+  }
+
+  if (loading && showLoader) {
     return (
       <div className="min-h-screen bg-primary flex items-center justify-center">
         <Loader2 className="animate-spin text-accent-cyan" size={48} />
@@ -109,9 +115,7 @@ export function ProjectDetail({ settings }: { settings: any }) {
   }
 
   return (
-    <main className="min-h-screen bg-primary selection:bg-accent-cyan selection:text-primary">
-      <Navigation settings={settings} />
-
+    <div className="selection:bg-accent-cyan selection:text-primary">
       {/* Hero Section */}
       <section className="relative h-[90vh] flex items-end overflow-hidden">
         <motion.div 
@@ -307,8 +311,6 @@ export function ProjectDetail({ settings }: { settings: any }) {
           </div>
         </section>
       )}
-
-      <Footer settings={settings} />
-    </main>
+    </div>
   );
 }

@@ -1,13 +1,7 @@
-import React, { useEffect } from 'react';
-import { Navigation } from '../components/Navigation';
-import { Footer } from '../components/Footer';
+import React from 'react';
 import { motion } from 'framer-motion';
 
 export function TermsConditions({ settings }: { settings: any }) {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   const sections = [
     {
       title: "Revision Policy",
@@ -24,55 +18,61 @@ export function TermsConditions({ settings }: { settings: any }) {
   ];
 
   return (
-    <main className="min-h-screen bg-primary selection:bg-accent-cyan/30 selection:text-accent-cyan flex flex-col">
-      <Navigation settings={settings} />
+    <div className="flex-grow pt-32 pb-20 relative overflow-hidden">
+      {/* Background Glows */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent-cyan/5 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent-purple/5 blur-[150px] rounded-full pointer-events-none" />
       
-      <div className="flex-grow pt-32 pb-20 relative overflow-hidden">
-        {/* Background Glows */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent-cyan/5 blur-[150px] rounded-full pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent-purple/5 blur-[150px] rounded-full pointer-events-none" />
-        
-        <div className="container mx-auto px-6 relative z-10 max-w-4xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-16"
-          >
-            <h1 className="text-4xl md:text-6xl font-display font-bold mb-6">
-              Terms & <span className="text-gradient">Conditions</span>
-            </h1>
-            <div className="w-20 h-1 bg-accent-cyan rounded-full mb-8" />
-            <p className="text-white/60 text-lg">
-              Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-            </p>
-          </motion.div>
+      <div className="container mx-auto px-6 relative z-10 max-w-4xl">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-16"
+        >
+          <h1 className="text-4xl md:text-6xl font-display font-bold mb-6">
+            Terms & <span className="text-gradient">Conditions</span>
+          </h1>
+          <div className="w-20 h-1 bg-accent-cyan rounded-full mb-8" />
+          <p className="text-white/60 text-lg">
+            Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+          </p>
+        </motion.div>
 
-          <div className="space-y-12">
-            {sections.map((section, idx) => (
-              <motion.div 
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.05 }}
-                className="space-y-4"
-              >
-                <h2 className="text-2xl font-display font-bold text-white border-l-4 border-accent-cyan pl-4">
-                  {section.title}
-                </h2>
-                <div className="text-white/60 leading-relaxed space-y-4 pl-5">
-                  {section.content.split('\n\n').map((paragraph, pIdx) => (
-                    <p key={pIdx}>{paragraph}</p>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
+        <div className="space-y-12">
+          {sections.map((section, idx) => (
+            <motion.div 
+              key={idx}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.05 }}
+              className="space-y-4"
+            >
+              <h2 className="text-2xl font-display font-bold text-white border-l-4 border-accent-cyan pl-4">
+                {section.title}
+              </h2>
+              <div className="text-white/60 leading-relaxed space-y-4 pl-5">
+                {section.content.split('\n\n').map((paragraph, pIdx) => {
+                  if (paragraph.includes('•')) {
+                    return (
+                      <ul key={pIdx} className="space-y-2 list-none">
+                        {paragraph.split('\n').filter(line => line.trim()).map((line, lIdx) => (
+                          <li key={lIdx} className="flex gap-3">
+                            <span className="text-accent-cyan">•</span>
+                            <span>{line.trim().replace(/^•/, '').trim()}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    );
+                  }
+                  return <p key={pIdx}>{paragraph}</p>;
+                })}
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
-
-      <Footer settings={settings} />
-    </main>
+    </div>
   );
 }

@@ -57,9 +57,9 @@ export function PackageCard({ pkg, style, index, onOrder }: PackageCardProps) {
         transformStyle: "preserve-3d",
       }}
       className={cn(
-        "glass-card group relative p-10 rounded-[3rem] flex flex-col transition-all duration-500",
+        "glass-card group relative p-10 rounded-[3rem] flex flex-col h-full transition-all duration-500",
         style.border,
-        pkg.popular && "border-white/20 z-10 scale-[1.02]"
+        pkg.popular && "border-white/20 z-10"
       )}
     >
       {/* Popular Badge */}
